@@ -2,6 +2,8 @@
 #include "tools/Utils.h"
 #include "tools/ArgParser.h"
 
+#include <cmath>
+
 void initMatrix(double *&A, double *&B, unsigned int N){
 	Utils<double> u;
 	for(unsigned int i = 0 ; i < N*N;i++){
@@ -33,9 +35,7 @@ void dgemm1(const double *A, const double *B, double *&C, unsigned int N){
 			register double rC = 0;
 			for(unsigned int k = 0; k < N ;k++){
 				rC += A[ i * N + k ] * B[ k * N + j ];
-				//std::cout << A[ i * N + k ] <<","<< B[ k * N + j ]<< std::endl;
 			}
-			//std::cout<<std::endl;
 			C[ i * N + j ] = rC;
 		}
 	}
@@ -87,14 +87,12 @@ void dgemm3(const double *A, const double *B, double *&C, unsigned int N){
 			register double rC03 = 0.0f;
 			register double rC13 = 0.0f;
 
-
-
 			for(unsigned int k = 0; k < N ;k+=2){
 				register int iA = i * N + k; register int iiA = iA + N;
 				register int iB = k * N + j; register int iiB = iB + N;
 
 				register double rA0 = A[iA]; register double rA1 = A[iiA];
-				register double rB0 = B[iB]; register double rB1 = B[iB + 1]; register double rB2 = B[iB + 2]; register double rB2 = B[iB + 3];
+				register double rB0 = B[iB]; register double rB1 = B[iB + 1]; register double rB2 = B[iB + 2]; register double rB3 = B[iB + 3];
 
 				rC00 += rA0 * rB0;
 				rC01 += rA0 * rB1;
@@ -107,9 +105,17 @@ void dgemm3(const double *A, const double *B, double *&C, unsigned int N){
 				rC13 += rA1 * rB3;
 
 				rA0 = A[iA+1]; rA1 = A[iiA+1];
-				rB0 = B[iiB]; rB1 = B[iiB + 1];
+				rB0 = B[iiB]; rB1 = B[iiB + 1]; rB2 = B[iiB + 2]; rB3 = B[iiB + 3];
 
-				rC00 += rA0 * rB0; rC01 += rA0 * rB1; rC10 += rA1 * rB0; rC11 += rA1 * rB1;
+				rC00 += rA0 * rB0;
+				rC01 += rA0 * rB1;
+				rC02 += rA0 * rB2;
+				rC03 += rA0 * rB3;
+
+				rC10 += rA1 * rB0;
+				rC11 += rA1 * rB1;
+				rC12 += rA1 * rB2;
+				rC13 += rA1 * rB3;
 			}
 
 			C[ iC ] = rC00;
@@ -125,14 +131,18 @@ void dgemm3(const double *A, const double *B, double *&C, unsigned int N){
 	}
 }
 
-int cmpResults(double *C, double *D, unsigned int N){
-	for(unsigned int i = 0; i <N; i++){
-		if (D[i] != C[i]){
-			std::cout<< "different results error: " <<i << "," << C[i] << "," << D[i] << std::endl;
-			return 1;
-		}
+void cmpResults(double *C, double *D, unsigned int N, std::string a, std::string b){
+	double diff = std::abs(C[0] - D[0]);
+	double maxA = std::abs(C[0]);
+	double maxB = std::abs(D[0]);
+
+	for(unsigned int i = 0; i <N *N; i++){
+		if(std::abs(C[i] - D[i]) > diff) diff = std::abs(C[i] - D[i]);
+		if(std::abs(C[i]) > maxA) maxA = std::abs(C[i]);
+		if(std::abs(D[i]) > maxB) maxB = std::abs(C[i]);
 	}
-	return 0;
+	diff/=maxA*maxB;
+	std::cout<<"maximum difference between "<<a << " and "<<b  <<" is " << diff <<std::endl;
 }
 
 int main(int argc, char **argv){
@@ -173,24 +183,32 @@ int main(int argc, char **argv){
 	t.start();
 	dgemm1(A,B,D,N);
 	double d1 = t.lap("Elapsed time for dgemm1 in secs");
-	if(cmpResults(C,D,N) != 0 ) return 1;
+	cmpResults(C,D,N,"dgemm0","dgemm1");
 
 	zeros(C,N);
 	t.start();
 	dgemm2(A,B,C,N);
 	double d2 = t.lap("Elapsed time for dgemm2 in secs");
-	if(cmpResults(C,D,N) != 0 ) return 1;
+	cmpResults(C,D,N,"dgemm1","dgemm2");
+
+	zeros(D,N);
+	t.start();
+	dgemm3(A,B,D,N);
+	double d3 = t.lap("Elapsed time for dgemm3 in secs");
+	cmpResults(C,D,N,"dgemm2","dgemm3");
 
 
 	uint64_t fop = N;
 	fop *=fop*fop*2;
-	std::cout << "Double precision floating point operations: " << fop << std::endl;
+	std::cout << "Total number of double precision floating point operations: " << fop << std::endl;
 	d0 = (fop / d0)/1000000000;
 	std::cout << "Dgemm0 GFLOPS: " << d0 << std::endl;
 	d1 = (fop / d1)/1000000000;
 	std::cout << "Dgemm1 GFLOPS: " << d1 << std::endl;
 	d2 = (fop / d2)/1000000000;
 	std::cout << "Dgemm2 GFLOPS: " << d2 << std::endl;
+	d3 = (fop / d3)/1000000000;
+	std::cout << "Dgemm3 GFLOPS: " << d3 << std::endl;
 
 	delete A;
 	delete B;
