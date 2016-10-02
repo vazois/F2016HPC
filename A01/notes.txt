@@ -1,0 +1,12 @@
+author:Vasileios Zois
+
+Compilation & Execution Instructions
+
+1) Type make to compile the code. Make sure to use gcc-4.7.2
+2) To execute you can use the jobscript included on TARDIS.
+3) To execute type ./dgemm -n=128 where n is the matrix size
+4) All functions are executed so make sure to give small n unless you have time to spare :)
+5) If you do make o3 it will let gcc optimize the code. It generally gives better results but i used no optimizations to run
+the experiments
+
+

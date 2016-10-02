@@ -7,8 +7,8 @@
 void initMatrix(double *&A, double *&B, unsigned int N){
 	Utils<double> u;
 	for(unsigned int i = 0 ; i < N*N;i++){
-		A[i] = i+1;
-		B[i] = i + 1;
+		A[i] = u.uni(0,1);
+		B[i] = u.uni(0,1);
 	}
 }
 
@@ -131,6 +131,122 @@ void dgemm3(const double *A, const double *B, double *&C, unsigned int N){
 	}
 }
 
+void dgemm4(const double *A, const double *B, double *&C, unsigned int N){
+	for(unsigned int i = 0; i < N ;i+=2){
+		for(unsigned int j = 0; j < N ;j+=4){
+			register int iC = i * N + j; register int iiC = iC + N;
+
+			register double rC00 = 0.0f;
+			register double rC01 = 0.0f;
+			register double rC10 = 0.0f;
+			register double rC11 = 0.0f;
+			register double rC02 = 0.0f;
+			register double rC12 = 0.0f;
+			register double rC03 = 0.0f;
+			register double rC13 = 0.0f;
+
+			for(unsigned int k = 0; k < N ;k+=2){
+				register int iA = i * N + k; register int iiA = iA + N;
+				register int iB = k * N + j; register int iiB = iB + N;
+
+				register double rA0 = A[iA]; register double rA1 = A[iiA]; register double rA0 = A[iA]; register double rA1 = A[iiA];
+				register double rB0 = B[iB]; register double rB1 = B[iB + 1]; register double rB2 = B[iB + 2]; register double rB3 = B[iB + 3];
+
+				rC00 += rA0 * rB0;
+				rC01 += rA0 * rB1;
+				rC02 += rA0 * rB2;
+				rC03 += rA0 * rB3;
+
+				rC10 += rA1 * rB0;
+				rC11 += rA1 * rB1;
+				rC12 += rA1 * rB2;
+				rC13 += rA1 * rB3;
+
+				rA0 = A[iA+1]; rA1 = A[iiA+1];
+				rB0 = B[iiB]; rB1 = B[iiB + 1]; rB2 = B[iiB + 2]; rB3 = B[iiB + 3];
+
+				rC00 += rA0 * rB0;
+				rC01 += rA0 * rB1;
+				rC02 += rA0 * rB2;
+				rC03 += rA0 * rB3;
+
+				rC10 += rA1 * rB0;
+				rC11 += rA1 * rB1;
+				rC12 += rA1 * rB2;
+				rC13 += rA1 * rB3;
+			}
+
+			C[ iC ] = rC00;
+			C[ iC + 1 ] = rC01;
+			C[ iC + 2 ] = rC02;
+			C[ iC + 3 ] = rC03;
+
+			C[ iiC ] = rC10;
+			C[ iiC + 1 ] = rC11;
+			C[ iiC + 2 ] = rC12;
+			C[ iiC + 3 ] = rC13;
+		}
+	}
+}
+
+void dgemm4(const double *A, const double *B, double *&C, unsigned int N){
+	for(unsigned int i = 0; i < N ;i+=4){
+		for(unsigned int j = 0; j < N ;j+=2){
+			register int iC = i * N + j; register int iiC = iC + N;
+
+			register double rC00 = 0.0f;
+			register double rC01 = 0.0f;
+			register double rC10 = 0.0f;
+			register double rC11 = 0.0f;
+			register double rC02 = 0.0f;
+			register double rC12 = 0.0f;
+			register double rC03 = 0.0f;
+			register double rC13 = 0.0f;
+
+			for(unsigned int k = 0; k < N ;k+=2){
+				register int iA = i * N + k; register int iiA = iA + N;
+				register int iB = k * N + j; register int iiB = iB + N;
+
+				register double rA0 = A[iA]; register double rA1 = A[iiA]; register double rA2 = B[iB + 2]; register double rA3 = B[iB + 3];
+				register double rB0 = B[iB]; register double rB1 = B[iB + 1];
+
+				rC00 += rA0 * rB0;
+				rC01 += rA1 * rB0;
+				rC02 += rA2 * rB0;
+				rC03 += rA3 * rB0;
+
+				rC10 += rA0 * rB1;
+				rC11 += rA1 * rB1;
+				rC12 += rA2 * rB1;
+				rC13 += rA3 * rB1;
+
+				rA0 = A[iA+1]; rA1 = A[iiA+1];
+				rB0 = B[iiB]; rB1 = B[iiB + 1]; rB2 = B[iiB + 2]; rB3 = B[iiB + 3];
+
+				rC00 += rA0 * rB0;
+				rC01 += rA1 * rB0;
+				rC02 += rA2 * rB0;
+				rC03 += rA3 * rB0;
+
+				rC10 += rA0 * rB1;
+				rC11 += rA1 * rB1;
+				rC12 += rA2 * rB1;
+				rC13 += rA3 * rB1;
+			}
+
+			C[ iC ] = rC00;
+			C[ iC + 1 ] = rC01;
+			C[ iC + 2 ] = rC02;
+			C[ iC + 3 ] = rC03;
+
+			C[ iiC ] = rC10;
+			C[ iiC + 1 ] = rC11;
+			C[ iiC + 2 ] = rC12;
+			C[ iiC + 3 ] = rC13;
+		}
+	}
+}
+
 void cmpResults(double *C, double *D, unsigned int N, std::string a, std::string b){
 	double diff = std::abs(C[0] - D[0]);
 	double maxA = std::abs(C[0]);
@@ -185,9 +301,9 @@ int main(int argc, char **argv){
 	double d1 = t.lap("Elapsed time for dgemm1 in secs");
 	cmpResults(C,D,N,"dgemm0","dgemm1");
 
-	zeros(C,N);
+	zeros(D,N);
 	t.start();
-	dgemm2(A,B,C,N);
+	dgemm2(A,B,D,N);
 	double d2 = t.lap("Elapsed time for dgemm2 in secs");
 	cmpResults(C,D,N,"dgemm1","dgemm2");
 
