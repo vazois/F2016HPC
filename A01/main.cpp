@@ -274,7 +274,7 @@ int main(int argc, char **argv){
 	std::cout << "Dgemm2 GFLOPS: " << d2 << std::endl;
 	d3 = (fop / d3)/1000000000;
 	std::cout << "Dgemm3 GFLOPS: " << d3 << std::endl;
-	d3 = (fop / d3b)/1000000000;
+	d3b = (fop / d3b)/1000000000;
 	std::cout << "Dgemm3b GFLOPS: " << d3b << std::endl;
 
 	delete A;
