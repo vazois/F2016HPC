@@ -132,7 +132,7 @@ void dgemm3(const double *A, const double *B, double *&C, unsigned int N){
 	}
 }
 
-void dgemm4(const double *A, const double *B, double *&C, unsigned int N){
+void dgemm3b(const double *A, const double *B, double *&C, unsigned int N){
 	for(unsigned int i = 0; i < N ;i+=4){
 		for(unsigned int j = 0; j < N ;j+=2){
 			register int iC = i * N + j; register int iiC = iC + N;
@@ -258,9 +258,9 @@ int main(int argc, char **argv){
 
 	zeros(D,N);
 	t.start();
-	dgemm4(A,B,D,N);
-	double d4 = t.lap("Elapsed time for dgemm4 in secs");
-	cmpResults(A,B,C,D,N,"dgemm0","dgemm4");
+	dgemm3b(A,B,D,N);
+	double d3b = t.lap("Elapsed time for dgemm3b in secs");
+	cmpResults(A,B,C,D,N,"dgemm0","dgemm3b");
 
 
 	uint64_t fop = N;
@@ -274,6 +274,8 @@ int main(int argc, char **argv){
 	std::cout << "Dgemm2 GFLOPS: " << d2 << std::endl;
 	d3 = (fop / d3)/1000000000;
 	std::cout << "Dgemm3 GFLOPS: " << d3 << std::endl;
+	d3 = (fop / d3b)/1000000000;
+	std::cout << "Dgemm3b GFLOPS: " << d3b << std::endl;
 
 	delete A;
 	delete B;
