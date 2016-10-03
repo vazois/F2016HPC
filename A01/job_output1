@@ -1,83 +1,101 @@
 Matrix dimensions (64x64)
-Elapsed Time ( Elapsed time for dgemm0 in secs ): 0.005449
-Elapsed Time ( Elapsed time for dgemm1 in secs ): 0.003434
+Elapsed Time ( Elapsed time for dgemm0 in secs ): 0.005102
+Elapsed Time ( Elapsed time for dgemm1 in secs ): 0.003358
 maximum difference between dgemm0 and dgemm1 is 0
-Elapsed Time ( Elapsed time for dgemm2 in secs ): 0.001339
-maximum difference between dgemm1 and dgemm2 is 0
-Elapsed Time ( Elapsed time for dgemm3 in secs ): 0.00105
-maximum difference between dgemm2 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm2 in secs ): 0.001252
+maximum difference between dgemm0 and dgemm2 is 0
+Elapsed Time ( Elapsed time for dgemm3 in secs ): 0.000834
+maximum difference between dgemm0 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm3b in secs ): 0.000934
+maximum difference between dgemm0 and dgemm3b is 0
 Total number of double precision floating point operations: 524288
-Dgemm0 GFLOPS: 0.0962173
-Dgemm1 GFLOPS: 0.152676
-Dgemm2 GFLOPS: 0.391552
-Dgemm3 GFLOPS: 0.499322
+Dgemm0 GFLOPS: 0.102761
+Dgemm1 GFLOPS: 0.156131
+Dgemm2 GFLOPS: 0.41876
+Dgemm3 GFLOPS: 0.628643
+Dgemm3b GFLOPS: 0.561336
 -----------------------------------------
 Matrix dimensions (128x128)
-Elapsed Time ( Elapsed time for dgemm0 in secs ): 0.047589
-Elapsed Time ( Elapsed time for dgemm1 in secs ): 0.03081
+Elapsed Time ( Elapsed time for dgemm0 in secs ): 0.046992
+Elapsed Time ( Elapsed time for dgemm1 in secs ): 0.03149
 maximum difference between dgemm0 and dgemm1 is 0
-Elapsed Time ( Elapsed time for dgemm2 in secs ): 0.01038
-maximum difference between dgemm1 and dgemm2 is 0
-Elapsed Time ( Elapsed time for dgemm3 in secs ): 0.00855
-maximum difference between dgemm2 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm2 in secs ): 0.012263
+maximum difference between dgemm0 and dgemm2 is 0
+Elapsed Time ( Elapsed time for dgemm3 in secs ): 0.008515
+maximum difference between dgemm0 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm3b in secs ): 0.008828
+maximum difference between dgemm0 and dgemm3b is 0
 Total number of double precision floating point operations: 4194304
-Dgemm0 GFLOPS: 0.088136
-Dgemm1 GFLOPS: 0.136135
-Dgemm2 GFLOPS: 0.404076
-Dgemm3 GFLOPS: 0.490562
+Dgemm0 GFLOPS: 0.0892557
+Dgemm1 GFLOPS: 0.133195
+Dgemm2 GFLOPS: 0.342029
+Dgemm3 GFLOPS: 0.492578
+Dgemm3b GFLOPS: 0.475114
 -----------------------------------------
 Matrix dimensions (256x256)
-Elapsed Time ( Elapsed time for dgemm0 in secs ): 0.43428
-Elapsed Time ( Elapsed time for dgemm1 in secs ): 0.254728
+Elapsed Time ( Elapsed time for dgemm0 in secs ): 0.486086
+Elapsed Time ( Elapsed time for dgemm1 in secs ): 0.267798
 maximum difference between dgemm0 and dgemm1 is 0
-Elapsed Time ( Elapsed time for dgemm2 in secs ): 0.086443
-maximum difference between dgemm1 and dgemm2 is 0
-Elapsed Time ( Elapsed time for dgemm3 in secs ): 0.111937
-maximum difference between dgemm2 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm2 in secs ): 0.145374
+maximum difference between dgemm0 and dgemm2 is 0
+Elapsed Time ( Elapsed time for dgemm3 in secs ): 0.072565
+maximum difference between dgemm0 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm3b in secs ): 0.075807
+maximum difference between dgemm0 and dgemm3b is 0
 Total number of double precision floating point operations: 33554432
-Dgemm0 GFLOPS: 0.0772645
-Dgemm1 GFLOPS: 0.131727
-Dgemm2 GFLOPS: 0.388168
-Dgemm3 GFLOPS: 0.299762
+Dgemm0 GFLOPS: 0.0690298
+Dgemm1 GFLOPS: 0.125298
+Dgemm2 GFLOPS: 0.230815
+Dgemm3 GFLOPS: 0.462405
+Dgemm3b GFLOPS: 0.44263
 -----------------------------------------
 Matrix dimensions (512x512)
-Elapsed Time ( Elapsed time for dgemm0 in secs ): 5.01198
-Elapsed Time ( Elapsed time for dgemm1 in secs ): 3.11506
+Elapsed Time ( Elapsed time for dgemm0 in secs ): 4.85141
+Elapsed Time ( Elapsed time for dgemm1 in secs ): 3.44837
 maximum difference between dgemm0 and dgemm1 is 0
-Elapsed Time ( Elapsed time for dgemm2 in secs ): 1.11913
-maximum difference between dgemm1 and dgemm2 is 0
-Elapsed Time ( Elapsed time for dgemm3 in secs ): 0.852635
-maximum difference between dgemm2 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm2 in secs ): 1.41561
+maximum difference between dgemm0 and dgemm2 is 0
+Elapsed Time ( Elapsed time for dgemm3 in secs ): 1.03125
+maximum difference between dgemm0 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm3b in secs ): 1.04209
+maximum difference between dgemm0 and dgemm3b is 0
 Total number of double precision floating point operations: 268435456
-Dgemm0 GFLOPS: 0.0535588
-Dgemm1 GFLOPS: 0.0861735
-Dgemm2 GFLOPS: 0.239861
-Dgemm3 GFLOPS: 0.31483
+Dgemm0 GFLOPS: 0.0553314
+Dgemm1 GFLOPS: 0.0778441
+Dgemm2 GFLOPS: 0.189626
+Dgemm3 GFLOPS: 0.260301
+Dgemm3b GFLOPS: 0.257594
 -----------------------------------------
 Matrix dimensions (1024x1024)
-Elapsed Time ( Elapsed time for dgemm0 in secs ): 59.1893
-Elapsed Time ( Elapsed time for dgemm1 in secs ): 38.7773
+Elapsed Time ( Elapsed time for dgemm0 in secs ): 50.2219
+Elapsed Time ( Elapsed time for dgemm1 in secs ): 31.8665
 maximum difference between dgemm0 and dgemm1 is 0
-Elapsed Time ( Elapsed time for dgemm2 in secs ): 15.9802
-maximum difference between dgemm1 and dgemm2 is 0
-Elapsed Time ( Elapsed time for dgemm3 in secs ): 11.3473
-maximum difference between dgemm2 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm2 in secs ): 15.0712
+maximum difference between dgemm0 and dgemm2 is 0
+Elapsed Time ( Elapsed time for dgemm3 in secs ): 10.762
+maximum difference between dgemm0 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm3b in secs ): 9.1477
+maximum difference between dgemm0 and dgemm3b is 0
 Total number of double precision floating point operations: 2147483648
-Dgemm0 GFLOPS: 0.0362816
-Dgemm1 GFLOPS: 0.05538
-Dgemm2 GFLOPS: 0.134384
-Dgemm3 GFLOPS: 0.18925
+Dgemm0 GFLOPS: 0.0427599
+Dgemm1 GFLOPS: 0.0673901
+Dgemm2 GFLOPS: 0.142489
+Dgemm3 GFLOPS: 0.199543
+Dgemm3b GFLOPS: 0.234757
 -----------------------------------------
 Matrix dimensions (2048x2048)
-Elapsed Time ( Elapsed time for dgemm0 in secs ): 709.573
-Elapsed Time ( Elapsed time for dgemm1 in secs ): 459.741
+Elapsed Time ( Elapsed time for dgemm0 in secs ): 729.349
+Elapsed Time ( Elapsed time for dgemm1 in secs ): 489.363
 maximum difference between dgemm0 and dgemm1 is 0
-Elapsed Time ( Elapsed time for dgemm2 in secs ): 166.811
-maximum difference between dgemm1 and dgemm2 is 1.84769e-30
-Elapsed Time ( Elapsed time for dgemm3 in secs ): 101.484
-maximum difference between dgemm2 and dgemm3 is 1.84769e-30
+Elapsed Time ( Elapsed time for dgemm2 in secs ): 186.295
+maximum difference between dgemm0 and dgemm2 is 0
+Elapsed Time ( Elapsed time for dgemm3 in secs ): 107.851
+maximum difference between dgemm0 and dgemm3 is 0
+Elapsed Time ( Elapsed time for dgemm3b in secs ): 112.334
+maximum difference between dgemm0 and dgemm3b is 0
 Total number of double precision floating point operations: 17179869184
-Dgemm0 GFLOPS: 0.0242116
-Dgemm1 GFLOPS: 0.0373686
-Dgemm2 GFLOPS: 0.10299
-Dgemm3 GFLOPS: 0.169287
+Dgemm0 GFLOPS: 0.0235551
+Dgemm1 GFLOPS: 0.0351066
+Dgemm2 GFLOPS: 0.0922186
+Dgemm3 GFLOPS: 0.159293
+Dgemm3b GFLOPS: 0.152936

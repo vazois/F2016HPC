@@ -2,8 +2,9 @@
 JOB_PATH=/home/vzois001/F2016HPC/A01/ 
 module purge 
 module load gcc-4.7.2 
-cd $JOB_PATH ./dgemm -n=64 
+cd $JOB_PATH 
 
+./dgemm -n=64 
 echo "-----------------------------------------" 
 ./dgemm -n=128 
 echo "-----------------------------------------" 
