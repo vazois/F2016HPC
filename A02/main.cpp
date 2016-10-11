@@ -130,15 +130,15 @@ void test_blocked_approach(unsigned int N, unsigned int Bz){
 	dgemm_blocks_ijk(A,B,C,N,Bz);
 	double db_ijk = t.lap("Elapsed time for dgemm_blocks_ijk in secs");
 
-	t.start();//(1)
-	dgemm_reg_ijk(A,B,D,N);
-	double dr_ijk = t.lap("Elapsed time for dgemm_reg_ijk in secs");
-	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_reg_ijk");
-
-	t.start();//(6)
+	t.start();//(2)
 	dgemm_hybrid(A,B,D,N,Bz);
 	double db_hybrid = t.lap("Elapsed time for dgemm_hybrid in secs");
 	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid");
+
+	t.start();//(3)
+	dgemm_hybrid2(A,B,D,N,Bz);
+	double db_hybrid2 = t.lap("Elapsed time for dgemm_hybrid in secs");
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid2");
 
 	//GFLOPS
 	db_ijk = (fop / db_ijk)/1000000000;
