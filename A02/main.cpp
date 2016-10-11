@@ -3,6 +3,7 @@
 #include "tools/ArgParser.h"
 #include "dgemm_reg.h"
 #include "dgemm_blocks.h"
+#include "dgemm_hybrid.h"
 #include <cmath>
 
 void initMatrix(double *&A, double *&B, unsigned int N){
@@ -129,9 +130,21 @@ void test_blocked_approach(unsigned int N, unsigned int Bz){
 	dgemm_blocks_ijk(A,B,C,N,Bz);
 	double db_ijk = t.lap("Elapsed time for dgemm_blocks_ijk in secs");
 
+	t.start();//(1)
+	dgemm_reg_ijk(A,B,D,N);
+	double dr_ijk = t.lap("Elapsed time for dgemm_reg_ijk in secs");
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_reg_ijk");
+
+	t.start();//(6)
+	dgemm_hybrid(A,B,D,N,Bz);
+	double db_hybrid = t.lap("Elapsed time for dgemm_hybrid in secs");
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid");
+
 	//GFLOPS
 	db_ijk = (fop / db_ijk)/1000000000;
 	std::cout << "Dgemm_blocks_ijk GFLOPS: " << db_ijk << std::endl;
+	db_hybrid = (fop / db_hybrid)/1000000000;
+	std::cout << "Dgemm_hybrid GFLOPS: " << db_hybrid << std::endl;
 
 
 	delete A;
