@@ -9,6 +9,9 @@ all: cc
 cc: 
 	$(CC) -std=c++11 main.cpp -o $(EXEC)
 	
+c99:
+	$(CC) main.cpp -o $(EXEC)
+
 o3:
 	$(CC) -O3 -std=c++11 main.cpp -o $(EXEC)
 	

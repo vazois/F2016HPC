@@ -31,7 +31,7 @@ void dgemm_reg_jik(const double *A, const double *B, double *&C, unsigned int N)
 void dgemm_reg_kij(const double *A, const double *B, double *&C, unsigned int N){
 	for(unsigned int k = 0 ; k < N ; k++){
 		for(unsigned int i=0; i < N ; i++){
-			double rA = A[i * N + k];
+			register double rA = A[i * N + k];
 			for(unsigned int j=0; j < N ; j++){
 				C[i * N + j]+= rA * B[k*N + j];
 			}
@@ -43,7 +43,7 @@ void dgemm_reg_kij(const double *A, const double *B, double *&C, unsigned int N)
 void dgemm_reg_ikj(const double *A, const double *B, double *&C, unsigned int N){
 	for(unsigned int i=0; i < N ; i++){
 		for(unsigned int k = 0 ; k < N ; k++){
-			double rA = A[i * N + k];
+			register double rA = A[i * N + k];
 			for(unsigned int j=0; j < N ; j++){
 				C[i * N + j]+= rA * B[k*N + j];
 			}
@@ -55,7 +55,7 @@ void dgemm_reg_ikj(const double *A, const double *B, double *&C, unsigned int N)
 void dgemm_reg_jki(const double *A, const double *B, double *&C, unsigned int N){
 	for(unsigned int j=0; j < N ; j++){
 		for(unsigned int k=0; k < N ; k++){
-			double rB = B[k * N + j];
+			register double rB = B[k * N + j];
 			for(unsigned int i=0; i < N ; i++){
 				C[i * N + j] += A[i * N + k] * rB;
 			}
@@ -67,7 +67,7 @@ void dgemm_reg_jki(const double *A, const double *B, double *&C, unsigned int N)
 void dgemm_reg_kji(const double *A, const double *B, double *&C, unsigned int N){
 	for(unsigned int k=0; k < N ; k++){
 		for(unsigned int j=0; j < N ; j++){
-			double rB = B[k * N + j];
+			register double rB = B[k * N + j];
 			for(unsigned int i=0; i < N ; i++){
 				C[i * N + j] += A[i * N + k] * rB;
 			}

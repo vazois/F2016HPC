@@ -13,6 +13,7 @@
 #include <map>
 #include <iomanip>
 #include <vector>
+#include <cstdlib>
 
 #define UI_FRONT_SPACES 10
 #define UI_MIDDLE_SPACES 20

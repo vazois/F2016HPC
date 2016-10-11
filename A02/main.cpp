@@ -1,16 +1,17 @@
-#include "time/Time.h"
-#include "tools/Utils.h"
+//#include "tools/Utils.h"
 #include "tools/ArgParser.h"
+#include "time/CTime.h"
 #include "dgemm_reg.h"
 #include "dgemm_blocks.h"
 #include "dgemm_hybrid.h"
 #include <cmath>
+#include <inttypes.h>
 
 void initMatrix(double *&A, double *&B, unsigned int N){
-	Utils<double> u;
+	//Utils<double> u;
 	for(unsigned int i = 0 ; i < N*N;i++){
-		A[i] = u.uni(0,1);
-		B[i] = u.uni(0,1);
+		//A[i] = u.uni(0,1);
+		//B[i] = u.uni(0,1);
 	}
 }
 
@@ -53,37 +54,51 @@ void test_reg_approach(unsigned int N){
 
 	initMatrix(A,B,N);
 	zeros(C,N);
-	Time<secs> t;
 
 	//Start Benchmark
-	t.start();//(1)
+	start_clock();//(1)
 	dgemm_reg_ijk(A,B,C,N);
-	double dr_ijk = t.lap("Elapsed time for dgemm_reg_ijk in secs");
+	stop_clock();
+	double dr_ijk = secf();
 
-	t.start();//(2)
+	start_clock();//(2)
 	dgemm_reg_jik(A,B,D,N);
-	double dr_jik = t.lap("Elapsed time for dgemm_reg_jik in secs");
+	stop_clock();
+	double dr_jik = secf();
 	cmpResults(A,B,C,D,N,"dgemm_reg_ijk","dgemm_reg_jik");
 
-	t.start();//(3)
+	start_clock();//(3)
 	dgemm_reg_kij(A,B,D,N);
-	double dr_kij = t.lap("Elapsed time for dgemm_reg_kij in secs");
+	stop_clock();
+	double dr_kij = secf();
 	cmpResults(A,B,C,D,N,"dgemm_reg_ijk","dgemm_reg_kij");
 
-	t.start();//(4)
+	start_clock();
 	dgemm_reg_ikj(A,B,D,N);
-	double dr_ikj = t.lap("Elapsed time for dgemm_reg_ikj in secs");
+	stop_clock();
+	double dr_ikj = secf();
 	cmpResults(A,B,C,D,N,"dgemm_reg_ikj","dgemm_reg_ikj");
 
-	t.start();//(5)
+	start_clock();//(5)
 	dgemm_reg_jki(A,B,D,N);
-	double dr_jki = t.lap("Elapsed time for dgemm_reg_jki in secs");
+	stop_clock();
+	double dr_jki = secf();
 	cmpResults(A,B,C,D,N,"dgemm_reg_jki","dgemm_reg_jki");
 
-	t.start();//(6)
+	start_clock();//(6)
 	dgemm_reg_kji(A,B,D,N);
-	double dr_kji = t.lap("Elapsed time for dgemm_reg_kji in secs");
+	stop_clock();
+	double dr_kji = secf();
 	cmpResults(A,B,C,D,N,"dgemm_reg_jki","dgemm_reg_kji");
+
+	//Timing
+	printTime(dr_ijk,"Elapsed time of dgemm_reg_ijk in secs: ");
+	printTime(dr_jik,"Elapsed time of dgemm_reg_jik in secs: ");
+	printTime(dr_kij,"Elapsed time of dgemm_reg_kij in secs: ");
+	printTime(dr_ikj,"Elapsed time of dgemm_reg_ikj in secs: ");
+	printTime(dr_jki,"Elapsed time of dgemm_reg_kji in secs: ");
+	printTime(dr_kji,"Elapsed time of dgemm_reg_jki in secs: ");
+
 
 	//GFLOPS
 	dr_ijk = (fop / dr_ijk)/1000000000;
@@ -123,36 +138,42 @@ void test_blocked_approach(unsigned int N, unsigned int Bz){
 
 	initMatrix(A,B,N);
 	zeros(C,N);
-	Time<secs> t;
+	zeros(D,N);
 
-	//Start Benchmark
-	t.start();//(1)
+	//////////////////////////////////////////////////////////////////
+	//Start Benchmark for blocking versions
+	start_clock();
 	dgemm_blocks_ijk(A,B,C,N,Bz);
-	double db_ijk = t.lap("Elapsed time for dgemm_blocks_ijk in secs");
+	stop_clock();
+	double db_ijk = secf();
 
-	t.start();//(2)
-	dgemm_hybrid(A,B,D,N,Bz);
-	double db_hybrid = t.lap("Elapsed time for dgemm_hybrid in secs");
-	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid");
+	//Time for blocking versions
+	printTime(db_ijk,"Elapsed time of dgemm_blocks_ijk in secs: ");
 
-	t.start();//(3)
-	dgemm_hybrid2(A,B,D,N,Bz);
-	double db_hybrid2 = t.lap("Elapsed time for dgemm_hybrid in secs");
-	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid2");
-
-	//GFLOPS
+	//GFLOPS for blocking version
 	db_ijk = (fop / db_ijk)/1000000000;
 	std::cout << "Dgemm_blocks_ijk GFLOPS: " << db_ijk << std::endl;
+
+	/////////////////////////////////////////////////////////////////
+	//Hybrid
+	start_clock();
+	dgemm_hybrid(A,B,D,N,Bz);
+	stop_clock();
+	double db_hybrid = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid");
+
+	//Timing for hybrid version
+	printTime(db_hybrid,"Elapsed time of dgemm_hybrid in secs: ");
+
+	//GFLOPS for hybrid version
 	db_hybrid = (fop / db_hybrid)/1000000000;
 	std::cout << "Dgemm_hybrid GFLOPS: " << db_hybrid << std::endl;
-
 
 	delete A;
 	delete B;
 	delete C;
 	delete D;
 }
-
 
 int main(int argc, char **argv){
 	ArgParser ap;
