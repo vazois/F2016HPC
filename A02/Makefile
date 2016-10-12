@@ -4,7 +4,7 @@ FLAGS= -O3
 EXEC=dgemm
 
 
-all: cc
+all: c99
 
 cc: 
 	$(CC) -std=c++11 main.cpp -o $(EXEC)

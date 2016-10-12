@@ -1,0 +1,87 @@
+Testing blocked version...
+Matrix dimensions (2048x2048)
+Block Size: (4x4)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jik is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_ikj is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kij is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jki is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kji is: 0! (PASSED)
+Elapsed time of dgemm_blocks_ijk in secs:  50.2204
+Elapsed time of dgemm_blocks_jik in secs:  52.8374
+Elapsed time of dgemm_blocks_ikj in secs:  42.0125
+Elapsed time of dgemm_blocks_kij in secs:  42.3035
+Elapsed time of dgemm_blocks_jki in secs:  72.226
+Elapsed time of dgemm_blocks_kji in secs:  70.0528
+Dgemm_blocks_ijk GFLOPS: 0.342089
+Dgemm_blocks_jik GFLOPS: 0.325146
+Dgemm_blocks_ikj GFLOPS: 0.408923
+Dgemm_blocks_kij GFLOPS: 0.40611
+Dgemm_blocks_jki GFLOPS: 0.237863
+Dgemm_blocks_kji GFLOPS: 0.245242
+
+Testing blocked version...
+Matrix dimensions (2048x2048)
+Block Size: (8x8)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jik is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_ikj is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kij is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jki is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kji is: 0! (PASSED)
+Elapsed time of dgemm_blocks_ijk in secs:  35.4836
+Elapsed time of dgemm_blocks_jik in secs:  43.3949
+Elapsed time of dgemm_blocks_ikj in secs:  39.7617
+Elapsed time of dgemm_blocks_kij in secs:  39.1912
+Elapsed time of dgemm_blocks_jki in secs:  56.58
+Elapsed time of dgemm_blocks_kji in secs:  54.68
+Dgemm_blocks_ijk GFLOPS: 0.484164
+Dgemm_blocks_jik GFLOPS: 0.395896
+Dgemm_blocks_ikj GFLOPS: 0.43207
+Dgemm_blocks_kij GFLOPS: 0.438361
+Dgemm_blocks_jki GFLOPS: 0.303639
+Dgemm_blocks_kji GFLOPS: 0.314189
+
+Testing blocked version...
+Matrix dimensions (2048x2048)
+Block Size: (16x16)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jik is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_ikj is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kij is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jki is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kji is: 0! (PASSED)
+Elapsed time of dgemm_blocks_ijk in secs:  33.8053
+Elapsed time of dgemm_blocks_jik in secs:  35.4424
+Elapsed time of dgemm_blocks_ikj in secs:  37.6247
+Elapsed time of dgemm_blocks_kij in secs:  37.7721
+Elapsed time of dgemm_blocks_jki in secs:  60.0697
+Elapsed time of dgemm_blocks_kji in secs:  58.3167
+Dgemm_blocks_ijk GFLOPS: 0.508201
+Dgemm_blocks_jik GFLOPS: 0.484727
+Dgemm_blocks_ikj GFLOPS: 0.456612
+Dgemm_blocks_kij GFLOPS: 0.45483
+Dgemm_blocks_jki GFLOPS: 0.285999
+Dgemm_blocks_kji GFLOPS: 0.294596
+
+Testing blocked version...
+Matrix dimensions (2048x2048)
+Block Size: (32x32)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jik is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_ikj is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kij is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jki is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kji is: 0! (PASSED)
+Elapsed time of dgemm_blocks_ijk in secs:  47.2742
+Elapsed time of dgemm_blocks_jik in secs:  48.3005
+Elapsed time of dgemm_blocks_ikj in secs:  39.6837
+Elapsed time of dgemm_blocks_kij in secs:  39.919
+Elapsed time of dgemm_blocks_jki in secs:  84.9079
+Elapsed time of dgemm_blocks_kji in secs:  83.7261
+Dgemm_blocks_ijk GFLOPS: 0.363409
+Dgemm_blocks_jik GFLOPS: 0.355687
+Dgemm_blocks_ikj GFLOPS: 0.43292
+Dgemm_blocks_kij GFLOPS: 0.430368
+Dgemm_blocks_jki GFLOPS: 0.202335
+Dgemm_blocks_kji GFLOPS: 0.205191

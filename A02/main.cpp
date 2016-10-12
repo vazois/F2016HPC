@@ -215,12 +215,30 @@ void test_blocked_approach(unsigned int N, unsigned int Bz){
 	double db_hybrid = secf();
 	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid");
 
+	start_clock();
+	dgemm_hybrid2(A,B,D,N,Bz);
+	stop_clock();
+	double db_hybrid2 = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid2");
+
+	start_clock();
+	dgemm_hybrid3(A,B,D,N,Bz);
+	stop_clock();
+	double db_hybrid3 = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid3");
+
 	//Timing for hybrid version
 	printTime(db_hybrid,"Elapsed time of dgemm_hybrid in secs: ");
+	printTime(db_hybrid2,"Elapsed time of dgemm_hybrid2 in secs: ");
+	printTime(db_hybrid3,"Elapsed time of dgemm_hybrid2 in secs: ");
 
 	//GFLOPS for hybrid version
 	db_hybrid = (fop / db_hybrid)/1000000000;
 	std::cout << "Dgemm_hybrid GFLOPS: " << db_hybrid << std::endl;
+	db_hybrid2 = (fop / db_hybrid2)/1000000000;
+	std::cout << "Dgemm_hybrid2 GFLOPS: " << db_hybrid2 << std::endl;
+	db_hybrid3 = (fop / db_hybrid3)/1000000000;
+	std::cout << "Dgemm_hybrid2 GFLOPS: " << db_hybrid3 << std::endl;
 
 	delete A;
 	delete B;
