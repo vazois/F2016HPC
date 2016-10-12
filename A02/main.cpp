@@ -7,11 +7,19 @@
 #include <cmath>
 #include <inttypes.h>
 
+
+double randDouble(){
+	srand(time(NULL));
+	double X=((double)rand()/(double)RAND_MAX);
+
+	return X;
+}
+
 void initMatrix(double *&A, double *&B, unsigned int N){
-	//Utils<double> u;
 	for(unsigned int i = 0 ; i < N*N;i++){
-		//A[i] = u.uni(0,1);
-		//B[i] = u.uni(0,1);
+		//if(i == 0) std::cout << randDouble() << std::endl;
+		A[i] = randDouble();
+		B[i] = randDouble();
 	}
 }
 
@@ -33,10 +41,10 @@ void cmpResults(double *A,double *B, double *&C, double *D, unsigned int N, std:
 		D[i]=0.0;
 	}
 	diff/=maxA*maxB;
-	std::string CMP = diff == 0 ? "(PASSED)" : "(FAILED)";
-	std::cout<<"maximum difference between "<<a << " and "<<b  <<" is: " << diff <<"! "<<CMP <<std::endl;
-}
 
+	std::string cmp_result = diff == 0 ? "(PASSED)" : "(FAILED)";
+	std::cout<<"maximum difference between "<<a << " and "<<b  <<" is: " << diff <<"! "<<cmp_result <<std::endl;
+}
 
 void test_reg_approach(unsigned int N){
 	double *A,*B,*C, *D;
@@ -142,17 +150,62 @@ void test_blocked_approach(unsigned int N, unsigned int Bz){
 
 	//////////////////////////////////////////////////////////////////
 	//Start Benchmark for blocking versions
-	start_clock();
+	start_clock();//(1)
 	dgemm_blocks_ijk(A,B,C,N,Bz);
 	stop_clock();
 	double db_ijk = secf();
 
+	start_clock();//(2)
+	dgemm_blocks_jik(A,B,D,N,Bz);
+	stop_clock();
+	double db_jik = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_blocks_jik");
+
+	start_clock();//(3)
+	dgemm_blocks_ikj(A,B,D,N,Bz);
+	stop_clock();
+	double db_ikj = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_blocks_ikj");
+
+	start_clock();//(4)
+	dgemm_blocks_kij(A,B,D,N,Bz);
+	stop_clock();
+	double db_kij = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_blocks_kij");
+
+	start_clock();//(5)
+	dgemm_blocks_jki(A,B,D,N,Bz);
+	stop_clock();
+	double db_jki = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_blocks_jki");
+
+	start_clock();//(5)
+	dgemm_blocks_kji(A,B,D,N,Bz);
+	stop_clock();
+	double db_kji = secf();
+	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_blocks_kji");
+
 	//Time for blocking versions
 	printTime(db_ijk,"Elapsed time of dgemm_blocks_ijk in secs: ");
+	printTime(db_jik,"Elapsed time of dgemm_blocks_jik in secs: ");
+	printTime(db_ikj,"Elapsed time of dgemm_blocks_ikj in secs: ");
+	printTime(db_kij,"Elapsed time of dgemm_blocks_kij in secs: ");
+	printTime(db_jki,"Elapsed time of dgemm_blocks_jki in secs: ");
+	printTime(db_kji,"Elapsed time of dgemm_blocks_kji in secs: ");
 
 	//GFLOPS for blocking version
 	db_ijk = (fop / db_ijk)/1000000000;
 	std::cout << "Dgemm_blocks_ijk GFLOPS: " << db_ijk << std::endl;
+	db_jik = (fop / db_jik)/1000000000;
+	std::cout << "Dgemm_blocks_jik GFLOPS: " << db_jik << std::endl;
+	db_ikj = (fop / db_ikj)/1000000000;
+	std::cout << "Dgemm_blocks_ikj GFLOPS: " << db_ikj << std::endl;
+	db_kij = (fop / db_kij)/1000000000;
+	std::cout << "Dgemm_blocks_kij GFLOPS: " << db_kij << std::endl;
+	db_jki = (fop / db_jki)/1000000000;
+	std::cout << "Dgemm_blocks_jki GFLOPS: " << db_jki << std::endl;
+	db_kji = (fop / db_kji)/1000000000;
+	std::cout << "Dgemm_blocks_kji GFLOPS: " << db_kji << std::endl;
 
 	/////////////////////////////////////////////////////////////////
 	//Hybrid
