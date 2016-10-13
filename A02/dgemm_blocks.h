@@ -54,7 +54,7 @@ void dgemm_blocks_ikj(const double *A, const double *B, double *&C, unsigned int
 				//Blocked Matrix
 				for(unsigned int ii = i; ii < i + Bz; ii++){
 					for(unsigned int kk = k; kk < k + Bz; kk++){
-						double rA = A[ii * N + kk];
+						register double rA = A[ii * N + kk];
 						for(unsigned int jj = j; jj < j + Bz; jj++){
 							C[ii * N + jj]+= rA * B[kk*N + jj];
 						}
@@ -75,7 +75,7 @@ void dgemm_blocks_kij(const double *A, const double *B, double *&C, unsigned int
 				//Blocked Matrix
 				for(unsigned int kk = k; kk < k + Bz; kk++){
 					for(unsigned int ii = i; ii < i + Bz; ii++){
-						double rA = A[ii * N + kk];
+						register double rA = A[ii * N + kk];
 						for(unsigned int jj = j; jj < j + Bz; jj++){
 							C[ii * N + jj]+= rA * B[kk*N + jj];
 						}

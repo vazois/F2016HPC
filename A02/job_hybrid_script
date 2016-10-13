@@ -4,29 +4,55 @@ JOB_PATH=/home/vzois001/F2016HPC/A02/
 cd $JOB_PATH
 
 module purge
-
 make clean
-make c99 
-./dgemm -md=2 -n=2048 -b=16
-
-
-module load gcc-4.7.2
-make clean
-make c99 
+make c99
+echo "gcc 4.4.7 - no O"
 ./dgemm -md=2 -n=2048 -b=16
 
 make clean
 make c99o0
+echo "gcc 4.4.7 - O0"
 ./dgemm -md=2 -n=2048 -b=16
 
 make clean
 make c99o1
+echo "gcc 4.4.7 - O1"
 ./dgemm -md=2 -n=2048 -b=16
 
 make clean
 make c99o2
+echo "gcc 4.4.7 - O2"
 ./dgemm -md=2 -n=2048 -b=16
 
 make clean
 make c99o3
+echo "gcc 4.4.7 - O3"
+./dgemm -md=2 -n=2048 -b=16
+
+
+module purge
+module load gcc-4.7.2
+make clean
+make c99
+echo "gcc 4.7.2 - no O"
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o0
+echo "gcc 4.7.2 - O0"
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o1
+echo "gcc 4.7.2 - O1"
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o2
+echo "gcc 4.7.2 - O2"
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o3
+echo "gcc 4.7.2 - O3"
 ./dgemm -md=2 -n=2048 -b=16

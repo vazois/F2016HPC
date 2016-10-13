@@ -1,0 +1,21 @@
+Testing blocked version...
+Matrix dimensions (2048x2048)
+Block Size: (16x16)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jik is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_ikj is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kij is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_jki is: 0! (PASSED)
+maximum difference between dgemm_blocks_ijk and dgemm_blocks_kji is: 0! (PASSED)
+Elapsed time of dgemm_blocks_ijk in secs:  99.77
+Elapsed time of dgemm_blocks_jik in secs:  99.85
+Elapsed time of dgemm_blocks_ikj in secs:  97.63
+Elapsed time of dgemm_blocks_kij in secs:  92.37
+Elapsed time of dgemm_blocks_jki in secs:  143.01
+Elapsed time of dgemm_blocks_kji in secs:  151.29
+Dgemm_blocks_ijk GFLOPS: 0.172195
+Dgemm_blocks_jik GFLOPS: 0.172057
+Dgemm_blocks_ikj GFLOPS: 0.175969
+Dgemm_blocks_kij GFLOPS: 0.18599
+Dgemm_blocks_jki GFLOPS: 0.120131
+Dgemm_blocks_kji GFLOPS: 0.113556
