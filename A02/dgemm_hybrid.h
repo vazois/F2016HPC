@@ -136,4 +136,30 @@ void dgemm_hybrid3(const double *A, const double *B, double *&C, unsigned int N,
 	}
 }
 
+
+void dgemm_hybrid4(const double *A, const double *B, double *&C, unsigned int N, unsigned int Bz){
+	for(unsigned int i = 0; i < N; i+=Bz){
+		for(unsigned int k = 0; k < N; k+=Bz){
+			for(unsigned int j = 0; j < N; j+=Bz){
+
+				//Blocked Matrix
+				for(unsigned int ii = i; ii < i + Bz; ii+=2){
+					for(unsigned int kk = k; kk < k + Bz; kk+=2){
+						register double rA0 = A[i * N + k + 0];
+						register double rA1 = A[i * N + k + 1];
+						for(unsigned int jj = j; jj < j + Bz; jj+=2){
+							//C[i * N + j]+= rA * B[k*N + j];
+
+						}
+					}
+				}
+
+
+			}
+		}
+	}
+}
+
+
+
 #endif

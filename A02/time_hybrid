@@ -1,83 +1,159 @@
-gcc
+rm -rf dgemm
+g++  main.cpp -o dgemm
+gcc 4.4.7 - no O
 Testing hybrid version...
 Matrix dimensions (2048x2048)
 Block Size: (16x16)
 Total number of double precision floating point operations: 17179869184
 maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
 maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
-Elapsed time of dgemm_hybrid in secs:  36.98
-Elapsed time of dgemm_hybrid2 in secs:  26.87
-Elapsed time of dgemm_hybrid2 in secs:  23.96
-Dgemm_hybrid GFLOPS: 0.464572
-Dgemm_hybrid2 GFLOPS: 0.63937
-Dgemm_hybrid2 GFLOPS: 0.717023
+Elapsed time of dgemm_hybrid in secs:  34.87
+Elapsed time of dgemm_hybrid2 in secs:  28.22
+Elapsed time of dgemm_hybrid2 in secs:  25.52
+Dgemm_hybrid GFLOPS: 0.492683
+Dgemm_hybrid2 GFLOPS: 0.608783
+Dgemm_hybrid2 GFLOPS: 0.673192
 
-// gcc 4.7.2 no O0
-Testing hybrid version...
-Matrix dimensions (2048x2048)
-Block Size: (16x16)
-Total number of double precision floating point operations: 17179869184
-maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
-maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
-Elapsed time of dgemm_hybrid in secs:  39.16
-Elapsed time of dgemm_hybrid2 in secs:  28.39
-Elapsed time of dgemm_hybrid2 in secs:  27.02
-Dgemm_hybrid GFLOPS: 0.43871
-Dgemm_hybrid2 GFLOPS: 0.605138
-Dgemm_hybrid2 GFLOPS: 0.63582
 rm -rf dgemm
 g++  -O0 main.cpp -o dgemm
+gcc 4.4.7 - O0
 Testing hybrid version...
 Matrix dimensions (2048x2048)
 Block Size: (16x16)
 Total number of double precision floating point operations: 17179869184
 maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
 maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
-Elapsed time of dgemm_hybrid in secs:  39.17
-Elapsed time of dgemm_hybrid2 in secs:  28.51
-Elapsed time of dgemm_hybrid2 in secs:  25.2
-Dgemm_hybrid GFLOPS: 0.438598
-Dgemm_hybrid2 GFLOPS: 0.602591
-Dgemm_hybrid2 GFLOPS: 0.681741
+Elapsed time of dgemm_hybrid in secs:  37.3
+Elapsed time of dgemm_hybrid2 in secs:  28.41
+Elapsed time of dgemm_hybrid2 in secs:  25.18
+Dgemm_hybrid GFLOPS: 0.460586
+Dgemm_hybrid2 GFLOPS: 0.604712
+Dgemm_hybrid2 GFLOPS: 0.682282
+
 rm -rf dgemm
 g++  -O1 main.cpp -o dgemm
+gcc 4.4.7 - O1
 Testing hybrid version...
 Matrix dimensions (2048x2048)
 Block Size: (16x16)
 Total number of double precision floating point operations: 17179869184
 maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
 maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
-Elapsed time of dgemm_hybrid in secs:  10.82
-Elapsed time of dgemm_hybrid2 in secs:  8.33
-Elapsed time of dgemm_hybrid2 in secs:  9.89
-Dgemm_hybrid GFLOPS: 1.58779
-Dgemm_hybrid2 GFLOPS: 2.06241
-Dgemm_hybrid2 GFLOPS: 1.73709
+Elapsed time of dgemm_hybrid in secs:  11.01
+Elapsed time of dgemm_hybrid2 in secs:  8.39
+Elapsed time of dgemm_hybrid2 in secs:  10.16
+Dgemm_hybrid GFLOPS: 1.56039
+Dgemm_hybrid2 GFLOPS: 2.04766
+Dgemm_hybrid2 GFLOPS: 1.69093
+
 rm -rf dgemm
 g++  -O2 main.cpp -o dgemm
+gcc 4.4.7 - O2
 Testing hybrid version...
 Matrix dimensions (2048x2048)
 Block Size: (16x16)
 Total number of double precision floating point operations: 17179869184
 maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
 maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
-Elapsed time of dgemm_hybrid in secs:  10.66
-Elapsed time of dgemm_hybrid2 in secs:  8.85
-Elapsed time of dgemm_hybrid2 in secs:  9.39
-Dgemm_hybrid GFLOPS: 1.61162
-Dgemm_hybrid2 GFLOPS: 1.94123
-Dgemm_hybrid2 GFLOPS: 1.82959
+Elapsed time of dgemm_hybrid in secs:  10.9
+Elapsed time of dgemm_hybrid2 in secs:  8.87
+Elapsed time of dgemm_hybrid2 in secs:  9.83
+Dgemm_hybrid GFLOPS: 1.57613
+Dgemm_hybrid2 GFLOPS: 1.93685
+Dgemm_hybrid2 GFLOPS: 1.7477
+
 rm -rf dgemm
 g++  -O3 main.cpp -o dgemm
+gcc 4.4.7 - O3
 Testing hybrid version...
 Matrix dimensions (2048x2048)
 Block Size: (16x16)
 Total number of double precision floating point operations: 17179869184
 maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
 maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
-Elapsed time of dgemm_hybrid in secs:  10.84
-Elapsed time of dgemm_hybrid2 in secs:  9.08
-Elapsed time of dgemm_hybrid2 in secs:  9.88
-Dgemm_hybrid GFLOPS: 1.58486
-Dgemm_hybrid2 GFLOPS: 1.89206
-Dgemm_hybrid2 GFLOPS: 1.73885
+Elapsed time of dgemm_hybrid in secs:  11.94
+Elapsed time of dgemm_hybrid2 in secs:  9.71
+Elapsed time of dgemm_hybrid2 in secs:  10.83
+Dgemm_hybrid GFLOPS: 1.43885
+Dgemm_hybrid2 GFLOPS: 1.7693
+Dgemm_hybrid2 GFLOPS: 1.58632
+
+rm -rf dgemm
+g++  main.cpp -o dgemm
+gcc 4.7.2 - no O
+Testing hybrid version...
+Matrix dimensions (2048x2048)
+Block Size: (16x16)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
+maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
+Elapsed time of dgemm_hybrid in secs:  36.45
+Elapsed time of dgemm_hybrid2 in secs:  27.45
+Elapsed time of dgemm_hybrid2 in secs:  23.06
+Dgemm_hybrid GFLOPS: 0.471327
+Dgemm_hybrid2 GFLOPS: 0.62586
+Dgemm_hybrid2 GFLOPS: 0.745007
+
+rm -rf dgemm
+g++  -O0 main.cpp -o dgemm
+gcc 4.7.2 - O0
+Testing hybrid version...
+Matrix dimensions (2048x2048)
+Block Size: (16x16)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
+maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
+Elapsed time of dgemm_hybrid in secs:  38.78
+Elapsed time of dgemm_hybrid2 in secs:  28.79
+Elapsed time of dgemm_hybrid2 in secs:  25.58
+Dgemm_hybrid GFLOPS: 0.443008
+Dgemm_hybrid2 GFLOPS: 0.59673
+Dgemm_hybrid2 GFLOPS: 0.671613
+
+rm -rf dgemm
+g++  -O1 main.cpp -o dgemm
+gcc 4.7.2 - O1
+Testing hybrid version...
+Matrix dimensions (2048x2048)
+Block Size: (16x16)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
+maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
+Elapsed time of dgemm_hybrid in secs:  11.02
+Elapsed time of dgemm_hybrid2 in secs:  8.36
+Elapsed time of dgemm_hybrid2 in secs:  9.92
+Dgemm_hybrid GFLOPS: 1.55897
+Dgemm_hybrid2 GFLOPS: 2.05501
+Dgemm_hybrid2 GFLOPS: 1.73184
+
+rm -rf dgemm
+g++  -O2 main.cpp -o dgemm
+gcc 4.7.2 - O2
+Testing hybrid version...
+Matrix dimensions (2048x2048)
+Block Size: (16x16)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
+maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
+Elapsed time of dgemm_hybrid in secs:  11.09
+Elapsed time of dgemm_hybrid2 in secs:  9.15
+Elapsed time of dgemm_hybrid2 in secs:  9.87
+Dgemm_hybrid GFLOPS: 1.54913
+Dgemm_hybrid2 GFLOPS: 1.87758
+Dgemm_hybrid2 GFLOPS: 1.74061
+
+rm -rf dgemm
+g++  -O3 main.cpp -o dgemm
+gcc 4.7.2 - O3
+Testing hybrid version...
+Matrix dimensions (2048x2048)
+Block Size: (16x16)
+Total number of double precision floating point operations: 17179869184
+maximum difference between dgemm_hybrid and dgemm_hybrid2 is: 0! (PASSED)
+maximum difference between dgemm_hybrid and dgemm_hybrid3 is: 0! (PASSED)
+Elapsed time of dgemm_hybrid in secs:  10.77
+Elapsed time of dgemm_hybrid2 in secs:  8.83
+Elapsed time of dgemm_hybrid2 in secs:  9.46
+Dgemm_hybrid GFLOPS: 1.59516
+Dgemm_hybrid2 GFLOPS: 1.94563
+Dgemm_hybrid2 GFLOPS: 1.81605
