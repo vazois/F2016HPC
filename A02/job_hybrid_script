@@ -1,0 +1,32 @@
+#PBS -l nodes=1:nogpu:ppn=1,walltime= 01:30:00
+
+JOB_PATH=/home/vzois001/F2016HPC/A02/ 
+cd $JOB_PATH
+
+module purge
+
+make clean
+make c99 
+./dgemm -md=2 -n=2048 -b=16
+
+
+module load gcc-4.7.2
+make clean
+make c99 
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o0
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o1
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o2
+./dgemm -md=2 -n=2048 -b=16
+
+make clean
+make c99o3
+./dgemm -md=2 -n=2048 -b=16

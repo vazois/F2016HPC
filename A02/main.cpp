@@ -207,25 +207,45 @@ void test_blocked_approach(unsigned int N, unsigned int Bz){
 	db_kji = (fop / db_kji)/1000000000;
 	std::cout << "Dgemm_blocks_kji GFLOPS: " << db_kji << std::endl;
 
+}
+
+void test_hybrid_approach(unsigned int N, unsigned int Bz){
+	double *A,*B,*C, *D;
+	A = new double[N * N];
+	B = new double[N * N];
+	C = new double[N * N];
+	D = new double[N * N];
+
+	std::cout << "Testing hybrid version..." << std::endl;
+	std::cout << "Matrix dimensions (" << N << "x" << N << ")" << std::endl;
+	std::cout << "Block Size: (" << Bz <<"x" << Bz <<")"<<std::endl;
+
+	uint64_t fop = N;
+	fop *=fop*fop*2;
+	std::cout << "Total number of double precision floating point operations: " << fop << std::endl;
+
+	initMatrix(A,B,N);
+	zeros(C,N);
+	zeros(D,N);
+
 	/////////////////////////////////////////////////////////////////
 	//Hybrid
 	start_clock();
-	dgemm_hybrid(A,B,D,N,Bz);
+	dgemm_hybrid(A,B,C,N,Bz);
 	stop_clock();
 	double db_hybrid = secf();
-	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid");
 
 	start_clock();
 	dgemm_hybrid2(A,B,D,N,Bz);
 	stop_clock();
 	double db_hybrid2 = secf();
-	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid2");
+	cmpResults(A,B,C,D,N,"dgemm_hybrid","dgemm_hybrid2");
 
 	start_clock();
 	dgemm_hybrid3(A,B,D,N,Bz);
 	stop_clock();
 	double db_hybrid3 = secf();
-	cmpResults(A,B,C,D,N,"dgemm_blocks_ijk","dgemm_hybrid3");
+	cmpResults(A,B,C,D,N,"dgemm_hybrid","dgemm_hybrid3");
 
 	//Timing for hybrid version
 	printTime(db_hybrid,"Elapsed time of dgemm_hybrid in secs: ");
@@ -290,6 +310,8 @@ int main(int argc, char **argv){
 		test_reg_approach(N);
 	}else if(MD==1){
 		test_blocked_approach(N,Bz);
+	}else if(MD==2){
+		test_hybrid_approach(N,Bz);
 	}
 
 

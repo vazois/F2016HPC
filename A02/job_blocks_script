@@ -2,11 +2,10 @@
 
 JOB_PATH=/home/vzois001/F2016HPC/A02/ 
 
-module purge
-
-module load gcc-4.7.2 
+module purge 
 
 cd $JOB_PATH
 
-
-./dgemm -md=1 -n=512 -b=16
+make clean
+make c99
+./dgemm -md=1 -n=2048 -b=16
