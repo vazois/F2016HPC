@@ -8,4 +8,16 @@ cd $JOB_PATH
 
 make clean
 make c99
+./dgemm -md=1 -n=2048 -b=4
+
+make clean
+make c99
+./dgemm -md=1 -n=2048 -b=8
+
+make clean
+make c99
 ./dgemm -md=1 -n=2048 -b=16
+
+make clean
+make c99
+./dgemm -md=1 -n=2048 -b=32
