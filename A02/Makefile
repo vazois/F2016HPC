@@ -15,7 +15,6 @@ c99:
 c11o3:
 	$(CC) -O3 -std=c++11 main.cpp -o $(EXEC)
 
-
 c99o0:
 	$(CC) -O0 main.cpp -o $(EXEC)
 	

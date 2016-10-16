@@ -85,27 +85,27 @@ void test_reg_approach(unsigned int N){
 	dgemm_reg_ikj(A,B,D,N);
 	stop_clock();
 	double dr_ikj = secf();
-	cmpResults(A,B,C,D,N,"dgemm_reg_ikj","dgemm_reg_ikj");
+	cmpResults(A,B,C,D,N,"dgemm_reg_ijk","dgemm_reg_ikj");
 
 	start_clock();//(5)
 	dgemm_reg_jki(A,B,D,N);
 	stop_clock();
 	double dr_jki = secf();
-	cmpResults(A,B,C,D,N,"dgemm_reg_jki","dgemm_reg_jki");
+	cmpResults(A,B,C,D,N,"dgemm_reg_ijk","dgemm_reg_jki");
 
 	start_clock();//(6)
 	dgemm_reg_kji(A,B,D,N);
 	stop_clock();
 	double dr_kji = secf();
-	cmpResults(A,B,C,D,N,"dgemm_reg_jki","dgemm_reg_kji");
+	cmpResults(A,B,C,D,N,"dgemm_reg_ijk","dgemm_reg_kji");
 
 	//Timing
 	printTime(dr_ijk,"Elapsed time of dgemm_reg_ijk in secs: ");
 	printTime(dr_jik,"Elapsed time of dgemm_reg_jik in secs: ");
 	printTime(dr_kij,"Elapsed time of dgemm_reg_kij in secs: ");
 	printTime(dr_ikj,"Elapsed time of dgemm_reg_ikj in secs: ");
-	printTime(dr_jki,"Elapsed time of dgemm_reg_kji in secs: ");
-	printTime(dr_kji,"Elapsed time of dgemm_reg_jki in secs: ");
+	printTime(dr_jki,"Elapsed time of dgemm_reg_jki in secs: ");
+	printTime(dr_kji,"Elapsed time of dgemm_reg_kji in secs: ");
 
 
 	//GFLOPS
