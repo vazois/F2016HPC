@@ -2,7 +2,7 @@ CC=mpicc
 EXEC=sieve
 EXEC2=sorg
 
-EXP=8
+EXP=10
 P=5
 
 all: cc
@@ -17,5 +17,5 @@ clean:
 	
 run: 
 	mpiexec -np=$(P) ./$(EXEC) $(EXP)
-	mpiexec -np=$(P) ./$(EXEC2) $(EXP)
+	#mpiexec -np=$(P) ./$(EXEC2) $(EXP)
 	

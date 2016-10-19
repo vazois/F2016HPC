@@ -69,6 +69,7 @@ int main (int argc, char *argv[])
 
    /* Allocate this process's share of the array. */
 
+   //printf("[%d],%d\n",id,size);
    marked = (char *) malloc (size);
 
    if (marked == NULL) {
