@@ -7,6 +7,13 @@
 #include "sieve_odd.h"
 
 
+void validate(unsigned int a, unsigned int b, char *msg){
+
+	char *check = a == b ? "(PASS)" : "(FAIL)";
+	printf("Comparison between %s,%s\n",msg,check);
+
+}
+
 int main(int argc, char **argv){
 	int id;	// My Id
 	int p;	// Number of processes
@@ -27,9 +34,13 @@ int main(int argc, char **argv){
 	n = pow(10,(double)exp);
 
 
-	sieve_original(id,n,p);
+	unsigned int res_orig=sieve_original(id,n,p);
 	MPI_Barrier(MPI_COMM_WORLD);
-	sieve_odd(id,n,p);
+	unsigned int res_odd=sieve_odd(id,n,p);
+	MPI_Barrier(MPI_COMM_WORLD);
+
+	if(id==0) validate(res_orig,res_odd,"original to odd version");
+
 
 
 	MPI_Finalize();

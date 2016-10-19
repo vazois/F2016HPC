@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-void sieve_original(int id, unsigned int n,unsigned int p){
+unsigned int sieve_original(int id, unsigned int n,unsigned int p){
 	if(id == 0) printf("Executing original sieve\n");
 	unsigned int low_value = 2 + id*(n-1)/p;
 	unsigned int high_value = 1 + (id+1)*(n-1)/p;
@@ -11,7 +11,7 @@ void sieve_original(int id, unsigned int n,unsigned int p){
 
 	MPI_Barrier(MPI_COMM_WORLD);
 	double elapsed_time = -MPI_Wtime();
-	printf("([%d],%d,%d,%d)\n",id,low_value,high_value,size);
+	//printf("([%d],%d,%d,%d)\n",id,low_value,high_value,size);
 
 	unsigned int proc0_size = (n-1)/p;
 
@@ -69,7 +69,7 @@ void sieve_original(int id, unsigned int n,unsigned int p){
 		printf ("SIEVE (%d) %10.6f\n", p, elapsed_time);
 	}
 
-
+	return global_count;
 }
 
 #endif

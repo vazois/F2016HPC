@@ -11,6 +11,6 @@ clean:
 	rm -rf $(EXEC)
 	
 run: 
-	mpiexec -np=4 ./$(EXEC) 2
+	mpiexec -np=4 ./$(EXEC) 8
 
 
