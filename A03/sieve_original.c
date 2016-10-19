@@ -9,6 +9,7 @@
 #include "mpi.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #define MIN(a,b)  ((a)<(b)?(a):(b))
 
 int main (int argc, char *argv[])
@@ -44,7 +45,8 @@ int main (int argc, char *argv[])
       exit (1);
    }
 
-   n = atoi(argv[1]);
+   int exp = atoi(argv[1]);
+   n = pow(10,(double)exp);
 
    /* Figure out this process's share of the array, as
       well as the integers represented by the first and
@@ -106,7 +108,7 @@ int main (int argc, char *argv[])
    /* Print the results */
 
    if (!id) {
-      printf ("There are %d primes less than or equal to %d\n",
+      printf ("There are {%d} primes less than or equal to %d\n",
          global_count, n);
       printf ("SIEVE (%d) %10.6f\n", p, elapsed_time);
    }

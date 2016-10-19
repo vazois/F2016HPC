@@ -102,9 +102,10 @@ unsigned int sieve_odd(int id, unsigned int n,unsigned int p){
 
 	elapsed_time += MPI_Wtime();
 	if(!id){
-		printf ("There are %d primes less than or equal to %d\n",global_count, n);
+		printf ("There are {%d} primes less than or equal to %d\n",global_count, n);
 		printf ("SIEVE (%d) %10.6f\n", p, elapsed_time);
 	}
+	free(marked);
 	return global_count;
 }
 

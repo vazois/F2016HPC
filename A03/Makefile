@@ -1,16 +1,21 @@
 CC=mpicc
 EXEC=sieve
+EXEC2=sorg
 
+EXP=8
+P=5
 
 all: cc
 
 cc: 
 	$(CC) main.c -lm -o $(EXEC)
+	$(CC) sieve_original.c -lm -o $(EXEC2)
 
 clean:
 	rm -rf $(EXEC)
+	rm -rf $(EXEC2)
 	
 run: 
-	mpiexec -np=4 ./$(EXEC) 8
-
-
+	mpiexec -np=$(P) ./$(EXEC) $(EXP)
+	mpiexec -np=$(P) ./$(EXEC2) $(EXP)
+	
