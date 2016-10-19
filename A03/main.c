@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 #include "sieve_original.h"
+#include "sieve_odd.h"
 
 
 int main(int argc, char **argv){
@@ -27,6 +28,8 @@ int main(int argc, char **argv){
 
 
 	sieve_original(id,n,p);
+	MPI_Barrier(MPI_COMM_WORLD);
+	sieve_odd(id,n,p);
 
 
 	MPI_Finalize();
