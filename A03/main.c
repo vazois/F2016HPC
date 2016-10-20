@@ -5,6 +5,7 @@
 
 #include "sieve_original.h"
 #include "sieve_odd.h"
+#include "sieve_local.h"
 
 
 void validate(uint64_t a, uint64_t b, char *msg){
@@ -38,9 +39,10 @@ int main(int argc, char **argv){
 	MPI_Barrier(MPI_COMM_WORLD);
 	uint64_t res_odd=sieve_odd(id,n,p);
 	MPI_Barrier(MPI_COMM_WORLD);
+	uint64_t res_local_odd=sieve_local_odd(id,n,p);
 
 	if(id==0) validate(res_orig,res_odd,"original to odd version");
-
+	if(id==0) validate(res_orig,res_local_odd,"original to local odd version");
 
 
 	MPI_Finalize();

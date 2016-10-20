@@ -13,22 +13,8 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 	uint64_t high_value = 1 + ((uint64_t)(id+1))*((n-1))/p;
 	uint64_t size = (high_value - low_value)/2 + 1;
 
-	/*int k;
-	int c=-1;
-	if(id==c){
-	for(k=low_value; k<=high_value;k+=2){
-		printf("%d{}%d,",(ODD_INDEX(k) - ODD_INDEX(low_value)),k);
-	}
-	printf("\n");
-	}*/
-
-	//MPI_Barrier(MPI_COMM_WORLD);
-	//if(id==c)
-	//printf("([%d],%"PRIu64",%"PRIu64",%"PRIu64")\n",id,low_value,high_value,size);
 	MPI_Barrier(MPI_COMM_WORLD);
-
 	double elapsed_time = -MPI_Wtime();
-
 	uint64_t proc0_size = (n-1)/p;
 
 	if ((2 + proc0_size) < (unsigned int) sqrt((double) n)) {
@@ -53,20 +39,12 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 
 	do
 	{
-		//if(id == 0) printf("current prime: %d\n",prime);
 		if(prime * prime > low_value){
-			//first = ODD_INDEX(prime * prime) - ODD_INDEX(low_value);//Find relative index for odd number// prime * prime will be odd always
 			first = prime * prime;
 		}else{
 			 if ((low_value % prime)== 0){//if multiple of current prime start from 0 local index
-				 //first = ODD_INDEX(low_value);
-				 //first = 0;
 				 first = low_value;
 			 }else{//find next multiple of current prime//convert it to local odd index//
-				 //first = low_value/prime;
-				 //first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
-				 //first = ODD_INDEX(first) - ODD_INDEX(low_value);
-
 				 first = (low_value/prime)*prime;
 				 first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
 			 }
@@ -86,14 +64,6 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 		if( p > 1 ) MPI_Bcast (&prime,  1, MPI_UNSIGNED_LONG, 0, MPI_COMM_WORLD);
 	}while(prime * prime <= n);
 
-	/*if(id==c){
-	for(i = low_value; i < high_value; i+=2){
-		if(marked[ODD_INDEX(i)-ODD_INDEX(low_value)]==0){
-			printf("[%d],%d\n",ODD_INDEX(i)-ODD_INDEX(low_value) ,i);
-		}
-	}
-	}*/
-
 	uint64_t count = (id==0) ? 1 : 0;
 	uint64_t global_count=0;
 	for(i = 0; i < size; i++){
@@ -104,7 +74,7 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 	elapsed_time += MPI_Wtime();
 	if(!id){
 		printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",global_count, (uint64_t)n);
-		printf ("SIEVE (%"PRIu64") %10.6f\n", p, elapsed_time);
+		printf ("SIEVE ODD (%"PRIu64") %10.6f\n", p, elapsed_time);
 	}
 	free(marked);
 	return global_count;

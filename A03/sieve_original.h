@@ -69,7 +69,7 @@ uint64_t sieve_original(int id, uint64_t n,uint64_t p){
 
 	if(!id){
 		printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",global_count, (uint64_t)n);
-		printf ("SIEVE (%"PRIu64") %10.6f\n", p, elapsed_time);
+		printf ("SIEVE ORIGINAL (%"PRIu64") %10.6f\n", p, elapsed_time);
 	}
 	free(marked);
 	return global_count;
