@@ -9,11 +9,7 @@ cd $JOB_PATH
 
 make
 
-
-EXEC=sieve
-EXP=6
-P=8
-#mpiexec -np=$(P) ./$(EXEC) $(EXP)
-mpiexec ./$(EXEC) $(EXP)
+#mpiexec -np=32 ./sieve 6
+mpiexec ./sieve 6 
 
 
