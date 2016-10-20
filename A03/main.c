@@ -34,7 +34,6 @@ int main(int argc, char **argv){
 	exp = atoi(argv[1]);
 	n = pow(10,(double)exp);
 
-
 	uint64_t res_orig=sieve_original(id,n,p);
 	MPI_Barrier(MPI_COMM_WORLD);
 	uint64_t res_odd=sieve_odd(id,n,p);
