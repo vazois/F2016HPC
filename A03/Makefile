@@ -2,7 +2,7 @@ CC=mpicc
 EXEC=sieve
 EXEC2=sorg
 
-EXP=4
+EXP=2
 P=1
 
 all: cc
