@@ -52,7 +52,7 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 
 		i=first;
 		uint64_t offset = ODD_INDEX(low_value);
-		while( i <= high_value){
+		while( i <= high_value ){
 			marked[ODD_INDEX(i) - offset]=1;
 			i+=(prime <<1);
 		}

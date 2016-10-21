@@ -75,7 +75,11 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 					first = low_value;
 				}else{//find next multiple of current prime//convert it to local odd index//
 					first = (low_value/prime)*prime;
-					first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
+					//first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
+					//first = ( first & 1 ) ? first + (prime << 1) : first+prime;//
+					first = first + (prime << ( first & 1 ));
+					//first = first + prime << ( first & 0x1 );
+					//first = (low_value/prime + 2)*prime;
 				}
 			}
 			uint64_t i = first;

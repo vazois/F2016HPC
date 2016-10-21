@@ -2,8 +2,8 @@ CC=mpicc
 EXEC=sieve
 EXEC2=sorg
 
-EXP=9
-P=8
+EXP=8
+P=6
 
 all: cc
 
