@@ -38,8 +38,9 @@ int main(int argc, char **argv){
 	/*uint64_t res_orig=sieve_original(id,n,p);
 	MPI_Barrier(MPI_COMM_WORLD);
 	uint64_t res_odd=sieve_odd(id,n,p);
-	MPI_Barrier(MPI_COMM_WORLD);
 	uint64_t res_local_odd=sieve_local_odd(id,n,p);
+	MPI_Barrier(MPI_COMM_WORLD);
+	uint64_t res_local_odd=sieve_local_cache(id,n,p);
 
 
 	if(id==0) validate(res_orig,res_odd,"original to odd version");
@@ -58,7 +59,17 @@ int main(int argc, char **argv){
 		//printf("\n");
 	}*/
 
-	uint64_t res_local_odd=sieve_local_cache(id,n,p);
+	uint64_t res_orig=sieve_original(id,n,p);
+	MPI_Barrier(MPI_COMM_WORLD);
+	uint64_t res_odd=sieve_odd(id,n,p);
+	MPI_Barrier(MPI_COMM_WORLD);
+	uint64_t res_local_odd=sieve_local_odd(id,n,p);
+	MPI_Barrier(MPI_COMM_WORLD);
+	uint64_t res_local_cache=sieve_local_cache(id,n,p);
+
+	if(id==0) validate(res_orig,res_odd,"original to odd version");
+	if(id==0) validate(res_orig,res_local_odd,"original to local odd version");
+	if(id==0) validate(res_orig,res_local_cache,"original to local cache aware version");
 
 
 	MPI_Finalize();

@@ -53,20 +53,20 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 		}
 		count++;//count 2
 		free(marked);
-		printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",count, high_value);
+		//printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",count, high_value);
 	}else{
 		uint64_t sqrt_n = (uint64_t)ceil(sqrt((double)n));
 		uint64_t first;
 
 		char *sieve = (char *) malloc (sqrt_n);
-		if(id == 1) printf("sqrt_n:%"PRIu64"\n",sqrt_n);
+		//if(id == 1) printf("sqrt_n:%"PRIu64"\n",sqrt_n);
 
 		for (i = 0; i < size; i++) marked[i] = 0;
 		for (i = 0; i < sqrt_n; i++) sieve[i] = 0;
 
 		index = 0;
 		prime = 3;
-		while(prime*prime <=n){
+		while(prime*prime <n){
 			//if(id==1) printf("%"PRIu64"\n",prime);
 			if(prime * prime > low_value){
 					first = prime * prime;
@@ -75,9 +75,9 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 					first = low_value;
 				}else{//find next multiple of current prime//convert it to local odd index//
 					first = (low_value/prime)*prime;
-					//first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
+					first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
 					//first = ( first & 1 ) ? first + (prime << 1) : first+prime;//
-					first = first + (prime << ( first & 1 ));
+					//first = first + (prime << ( first & 1 ));
 					//first = first + prime << ( first & 0x1 );
 					//first = (low_value/prime + 2)*prime;
 				}
@@ -98,7 +98,6 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 		}
 
 		for(i = 0; i < size; i++) if (marked[i] == 0) count++;
-		free(marked);
 	}
 
 	uint64_t global_count=0;
@@ -107,7 +106,7 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 	elapsed_time += MPI_Wtime();
 	if(!id){
 		printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",global_count, (uint64_t)n);
-		printf ("SIEVE LOCAL ODD (%"PRIu64") %10.6f\n", p, elapsed_time);
+		printf ("Elapsed time of <Sieve with local sieve> for (%"PRIu64") processes %10.6f\n", p, elapsed_time);
 	}
 
 	return global_count;

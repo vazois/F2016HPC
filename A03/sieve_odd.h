@@ -74,9 +74,8 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 	elapsed_time += MPI_Wtime();
 	if(!id){
 		printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",global_count, (uint64_t)n);
-		printf ("SIEVE ODD (%"PRIu64") %10.6f\n", p, elapsed_time);
+		printf ("Elapsed time of <Sieve on odd numbers> for (%"PRIu64") processes %10.6f\n", p, elapsed_time);
 	}
-	free(marked);
 	return global_count;
 }
 
