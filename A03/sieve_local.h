@@ -52,7 +52,6 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 			}
 		}
 		count++;//count 2
-		free(marked);
 		//printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",count, high_value);
 	}else{
 		uint64_t sqrt_n = (uint64_t)ceil(sqrt((double)n));

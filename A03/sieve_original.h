@@ -71,7 +71,6 @@ uint64_t sieve_original(int id, uint64_t n,uint64_t p){
 		printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",global_count, (uint64_t)n);
 		printf ("Elapsed time of <Original Sieve> for (%"PRIu64") processes %10.6f\n", p, elapsed_time);
 	}
-	//free(marked);
 	return global_count;
 }
 

@@ -75,13 +75,13 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p){
 	uint64_t c = 0;
 
 	i = low_value;
-	while(i < high_value){
+	while(i <= high_value){
 		csize = (i+bsize < high_value) ? bsize : (high_value - i);//chunk size
 		uint64_t lo = i;
 		uint64_t hi = i+csize;
 		for(j = 0 ; j < csize;j++) marked[j] = 1;
 
-		//printf("lo,hi,csize: %"PRIu64",%"PRIu64",%"PRIu64"\n",lo,hi,csize);
+		//if(id==1) printf("lo,hi,csize: %"PRIu64",%"PRIu64",%"PRIu64"\n",lo,hi,csize);
 		//printf("low_value,high_value,csize: %"PRIu64",%"PRIu64",%d\n",i,high_value,bsize);
 
 		for(j=0;j<psize;j++){
@@ -98,27 +98,35 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p){
 					first = first + (prime << ( first & 1 ));
 				}
 			}
-			//printf("p:%"PRIu64",lo:%"PRIu64",f:%"PRIu64",hi:%"PRIu64"\n",prime,lo,first,hi);
+			//if(id==1) printf("p:%"PRIu64",lo:%"PRIu64",f:%"PRIu64",hi:%"PRIu64"\n",prime,lo,first,hi);
 
 			uint64_t offset = ODD_INDEX(lo);
-			for(k=first;k<hi;k+=(prime<<1)){
+			for(k=first;k<=hi;k+=(prime<<1)){
 				//if(ODD_INDEX(k) - offset >= bsize/2){
 				//	printf("Error out of bounds %"PRIu64",%"PRIu64"\n",ODD_INDEX(k),offset);
 				//	return 0;
 
-				//printf("}%"PRIu64",%"PRIu64",%"PRIu64",%d\n",k,ODD_INDEX(k),offset,bsize/2);
+				//if(id==1) printf("}%"PRIu64",%"PRIu64",%"PRIu64",%d\n",k,ODD_INDEX(k),offset,bsize/2);
+				//if(id==1) printf("}%"PRIu64"\n",k);
 				marked[ODD_INDEX(k) - offset] = 0;
 			}
 			//break;
+
 		}
 		//break;
+		for(j = 0; j < csize/2; j++){
+			//if(id==1 && marked[j]==1){
+			//	printf("%"PRIu64", ",lo + 2*j);
+			//}
+			c = c + marked[j];
+		}
+		//if(id==1) printf("\n");
 
-		for(j = 0; j < csize/2; j++) c = c + marked[j];
 		i+=bsize;
 	}
 
 	if(id == 0) c++;//Do not forget to count 2 also
-	printf("[%"PRIu64"],%"PRIu64"\n",id,c);
+	printf("[%d],%"PRIu64"\n",id,c);
 	uint64_t global_count=0;
 	if (p > 1) MPI_Reduce (&c, &global_count, 1, MPI_UNSIGNED_LONG, MPI_SUM,0, MPI_COMM_WORLD);
 	elapsed_time += MPI_Wtime();
