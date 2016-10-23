@@ -7,7 +7,7 @@
 #define INDEX_ODD(x) (2*x + 3)
 
 uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p,uint64_t *lcount){
-	if(id == 0) printf("Executing odd numbers sieve\n");
+	if(id == 0) printf("Executing local odd numbers sieve\n");
 	uint64_t low_value = (id==0) ? 3 : 2 + ((uint64_t)id)*((n-1))/p;
 	if(!(id==0) ) low_value = (low_value % 2 == 0) ? low_value+1 : low_value;//Start with odd
 	uint64_t high_value = 1 + ((uint64_t)(id+1))*((n-1))/p;

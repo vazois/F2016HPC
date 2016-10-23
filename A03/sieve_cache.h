@@ -1,11 +1,13 @@
 #ifndef SIEVE_CACHE
 #define SIEVE_CACHE
 
-#define BSIZE 5000
+//#define BSIZE 5000
 #define ODD_INDEXC(x) (((x-3)/2))
 #define INDEX_ODDC(x) (2*x + 3)
 //#define ODD_INDEXC(x) (((x-3)>>1))
 //#define INDEX_ODDC(x) (x<<1 + 3)
+
+uint64_t BSIZE = 500000;
 
 unsigned int localSieve(unsigned int n, unsigned int **sieve){
 	unsigned int size = (n/2) - 1;
@@ -54,6 +56,7 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 	uint64_t size = (high_value - low_value)/2 + 1;
 
 	//printf("([%d],%"PRIu64",%"PRIu64",%"PRIu64")\n",id,low_value,high_value,size);
+	if(id == 0) printf("Cached Array Size:%"PRIu64"\n",BSIZE);
 	double elapsed_time = -MPI_Wtime();
 	uint64_t proc0_size = (n-1)/p;
 
@@ -70,7 +73,7 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 	uint64_t i,j;
 	uint64_t bsize = BSIZE;
 	uint64_t csize = 0;
-	char *marked = (char*)malloc(bsize/2);
+	char *marked = (char*)malloc(bsize/2 + 1);
 	uint64_t prime;
 	uint64_t first;
 	uint64_t c = 0;

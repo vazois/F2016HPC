@@ -4,6 +4,7 @@ EXEC2=sorg
 
 EXP=10
 P=256
+C=1000000
 
 all: cc
 
@@ -20,5 +21,5 @@ clean:
 	rm -rf $(EXEC)
 	
 run: 
-	mpiexec -np=$(P) ./$(EXEC) $(EXP)
+	mpiexec -np=$(P) ./$(EXEC) $(EXP) $(C)
 	
