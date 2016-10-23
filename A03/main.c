@@ -35,43 +35,24 @@ int main(int argc, char **argv){
 	exp = atoi(argv[1]);
 	n = pow(10,(double)exp);
 
-	/*uint64_t res_orig=sieve_original(id,n,p);
-	MPI_Barrier(MPI_COMM_WORLD);
-	uint64_t res_odd=sieve_odd(id,n,p);
-	uint64_t res_local_odd=sieve_local_odd(id,n,p);
-	MPI_Barrier(MPI_COMM_WORLD);
-	uint64_t res_local_odd=sieve_local_cache(id,n,p);
 
-
-	if(id==0) validate(res_orig,res_odd,"original to odd version");
-	if(id==0) validate(res_orig,res_local_odd,"original to local odd version");*/
-
-
-	/*if(id==0){
-		unsigned int *sieve;
-		unsigned int sqrt_n = (unsigned int)sqrt((double)n);
-		unsigned int size = localSieve(sqrt_n,&sieve);
-
-		//unsigned int i=0;
-		//for(i = 0;i<size;i++){
-		//	printf("%d ",sieve[i]);
-		//}
-		//printf("\n");
-	}*/
-
+	uint64_t rlc0,rlc1;
 	uint64_t res_orig=sieve_original(id,n,p);
 	MPI_Barrier(MPI_COMM_WORLD);
 	uint64_t res_odd=sieve_odd(id,n,p);
 	MPI_Barrier(MPI_COMM_WORLD);
-	uint64_t res_local_odd=sieve_local_odd(id,n,p);
+	uint64_t res_local_odd=sieve_local_odd(id,n,p,&rlc0);
 	MPI_Barrier(MPI_COMM_WORLD);
-	uint64_t res_local_cache=sieve_local_cache(id,n,p);
-	//if(id == 0) printf("results returned:%"PRIu64", ",res_local_cache);
+	uint64_t res_local_cache=sieve_local_cache(id,n,p,&rlc1);
+
+	if(rlc0!=rlc1) printf("{%d},%"PRIu64",%"PRIu64"\n",id,rlc0,rlc1);
 
 	if(id==0) validate(res_orig,res_odd,"original to odd version");
 	if(id==0) validate(res_orig,res_local_odd,"original to local odd version");
 	if(id==0) validate(res_orig,res_local_cache,"original to local cache aware version");
+	//if(id==0) validate(res_local_odd,res_local_cache,"local odd to local cache aware version");
 
 
+	MPI_Barrier(MPI_COMM_WORLD);
 	MPI_Finalize();
 }

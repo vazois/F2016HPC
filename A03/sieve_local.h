@@ -6,7 +6,7 @@
 #define ODD_INDEX(x) (((x-3)/2))
 #define INDEX_ODD(x) (2*x + 3)
 
-uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
+uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p,uint64_t *lcount){
 	if(id == 0) printf("Executing odd numbers sieve\n");
 	uint64_t low_value = (id==0) ? 3 : 2 + ((uint64_t)id)*((n-1))/p;
 	if(!(id==0) ) low_value = (low_value % 2 == 0) ? low_value+1 : low_value;//Start with odd
@@ -74,11 +74,9 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 					first = low_value;
 				}else{//find next multiple of current prime//convert it to local odd index//
 					first = (low_value/prime)*prime;
-					first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
+					//first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
 					//first = ( first & 1 ) ? first + (prime << 1) : first+prime;//
-					//first = first + (prime << ( first & 1 ));
-					//first = first + prime << ( first & 0x1 );
-					//first = (low_value/prime + 2)*prime;
+					first = first + (prime << ( first & 1 ));
 				}
 			}
 			uint64_t i = first;
@@ -101,13 +99,14 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p){
 
 	uint64_t global_count=0;
 	if (p > 1) MPI_Reduce (&count, &global_count, 1, MPI_UNSIGNED_LONG, MPI_SUM,0, MPI_COMM_WORLD);
-
 	elapsed_time += MPI_Wtime();
+
 	if(!id){
 		printf ("There are {%"PRIu64"} primes less than or equal to %"PRIu64"\n",global_count, (uint64_t)n);
 		printf ("Elapsed time of <Sieve with local sieve> for (%"PRIu64") processes %10.6f\n", p, elapsed_time);
 	}
 
+	*lcount = count;
 	return global_count;
 }
 

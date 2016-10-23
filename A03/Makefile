@@ -2,14 +2,17 @@ CC=mpicc
 EXEC=sieve
 EXEC2=sorg
 
-EXP=8
-P=4
+EXP=10
+P=256
 
 all: cc
 
 cc: 
 	$(CC) main.c -lm -o $(EXEC)
 
+ccO2:
+	$(CC) -O2 main.c -lm -o $(EXEC)
+	
 ccO3:
 	$(CC) -O3 main.c -lm -o $(EXEC)
 

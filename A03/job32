@@ -8,8 +8,4 @@ JOB_PATH=/home/vzois001/F2016HPC/A03/
 cd $JOB_PATH
 
 make
-
-#mpiexec -np=32 ./sieve 6
-mpiexec ./sieve 6
-
-
+mpiexec ./sieve 10

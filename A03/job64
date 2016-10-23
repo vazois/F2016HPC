@@ -1,4 +1,4 @@
-#PBS -l nodes=1:nogpu:ppn=32,walltime= 01:30:00
+#PBS -l nodes=2:nogpu:ppn=32,walltime= 01:30:00
 
 module purge
 module load mvapich2-1.9a2/gnu-4.6.2
@@ -8,8 +8,4 @@ JOB_PATH=/home/vzois001/F2016HPC/A03/
 cd $JOB_PATH
 
 make
-
-#mpiexec -np=32 ./sieve 6
-mpiexec ./sieve 6
-
-
+mpiexec ./sieve 10

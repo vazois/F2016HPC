@@ -1,8 +1,11 @@
 #ifndef SIEVE_CACHE
 #define SIEVE_CACHE
 
-#define ODD_INDEX(x) (((x-3)/2))
-#define INDEX_ODD(x) (2*x + 3)
+#define BSIZE 5000
+#define ODD_INDEXC(x) (((x-3)/2))
+#define INDEX_ODDC(x) (2*x + 3)
+//#define ODD_INDEXC(x) (((x-3)>>1))
+//#define INDEX_ODDC(x) (x<<1 + 3)
 
 unsigned int localSieve(unsigned int n, unsigned int **sieve){
 	unsigned int size = (n/2) - 1;
@@ -16,11 +19,11 @@ unsigned int localSieve(unsigned int n, unsigned int **sieve){
 
 	while(pp < n){
 		for(j = pp;j < n;j+=(prime<<1)){
-			marked[ODD_INDEX(j)] = 0;
+			marked[ODD_INDEXC(j)] = 0;
 		}
 
 		for(j = prime+2; j < n; j+=2){
-			if(marked[ODD_INDEX(j)]==1){
+			if(marked[ODD_INDEXC(j)]==1){
 				prime=j; break;
 			}
 		}
@@ -35,7 +38,7 @@ unsigned int localSieve(unsigned int n, unsigned int **sieve){
 	j=0;
 	for(i = 0; i < size; i++){
 		if(marked[i] == 1){
-			(*sieve)[j] = INDEX_ODD(i);
+			(*sieve)[j] = INDEX_ODDC(i);
 			j++;
 		}
 	}
@@ -43,16 +46,14 @@ unsigned int localSieve(unsigned int n, unsigned int **sieve){
 	return count - 1;
 }
 
-uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p){
+uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 	if(id == 0) printf("Executing odd numbers sieve with cache awareness \n");
 	uint64_t low_value = (id==0) ? 3 : 2 + ((uint64_t)id)*((n-1))/p;
 	if(!(id==0) ) low_value = (low_value % 2 == 0) ? low_value+1 : low_value;//Start with odd
 	uint64_t high_value = 1 + ((uint64_t)(id+1))*((n-1))/p;
 	uint64_t size = (high_value - low_value)/2 + 1;
 
-	printf("([%d],%"PRIu64",%"PRIu64",%"PRIu64")\n",id,low_value,high_value,size);
-
-	//MPI_Barrier(MPI_COMM_WORLD);
+	//printf("([%d],%"PRIu64",%"PRIu64",%"PRIu64")\n",id,low_value,high_value,size);
 	double elapsed_time = -MPI_Wtime();
 	uint64_t proc0_size = (n-1)/p;
 
@@ -66,8 +67,8 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p){
 	unsigned int sqrt_n = (unsigned int) sqrt((double)n);
 	unsigned int psize = localSieve(sqrt_n,&sieve);
 
-	uint64_t i,j,k;
-	unsigned int bsize = 5000;
+	uint64_t i,j;
+	uint64_t bsize = BSIZE;
 	uint64_t csize = 0;
 	char *marked = (char*)malloc(bsize/2);
 	uint64_t prime;
@@ -76,13 +77,14 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p){
 
 	i = low_value;
 	while(i <= high_value){
-		csize = (i+bsize < high_value) ? bsize : (high_value - i);//chunk size
+		csize = (i+bsize <= high_value) ? bsize : (high_value - i);//chunk size
 		uint64_t lo = i;
 		uint64_t hi = i+csize;
-		for(j = 0 ; j < csize;j++) marked[j] = 1;
+		uint64_t odds = (hi - lo)/2;
+		for(j = 0 ; j < bsize/2;j++) marked[j] = 1;
 
-		//if(id==1) printf("lo,hi,csize: %"PRIu64",%"PRIu64",%"PRIu64"\n",lo,hi,csize);
-		//printf("low_value,high_value,csize: %"PRIu64",%"PRIu64",%d\n",i,high_value,bsize);
+		//if(id==0) printf("lo,hi,csize: %"PRIu64",%"PRIu64",%"PRIu64"\n",lo,hi,csize);
+		//if(id==0) printf("low_value,high_value,csize: %"PRIu64",%"PRIu64",%d\n",low_value,high_value,bsize);
 
 		for(j=0;j<psize;j++){
 			prime = sieve[j];
@@ -100,33 +102,19 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p){
 			}
 			//if(id==1) printf("p:%"PRIu64",lo:%"PRIu64",f:%"PRIu64",hi:%"PRIu64"\n",prime,lo,first,hi);
 
+			uint64_t k=0;
 			uint64_t offset = ODD_INDEX(lo);
 			for(k=first;k<=hi;k+=(prime<<1)){
-				//if(ODD_INDEX(k) - offset >= bsize/2){
-				//	printf("Error out of bounds %"PRIu64",%"PRIu64"\n",ODD_INDEX(k),offset);
-				//	return 0;
-
-				//if(id==1) printf("}%"PRIu64",%"PRIu64",%"PRIu64",%d\n",k,ODD_INDEX(k),offset,bsize/2);
-				//if(id==1) printf("}%"PRIu64"\n",k);
-				marked[ODD_INDEX(k) - offset] = 0;
+				marked[ODD_INDEXC(k) - offset] = 0;
 			}
-			//break;
 
 		}
-		//break;
-		for(j = 0; j < csize/2; j++){
-			//if(id==1 && marked[j]==1){
-			//	printf("%"PRIu64", ",lo + 2*j);
-			//}
-			c = c + marked[j];
-		}
-		//if(id==1) printf("\n");
+		for(j = 0; j <= odds; j++){ c = c + marked[j]; }
 
 		i+=bsize;
 	}
 
 	if(id == 0) c++;//Do not forget to count 2 also
-	printf("[%d],%"PRIu64"\n",id,c);
 	uint64_t global_count=0;
 	if (p > 1) MPI_Reduce (&c, &global_count, 1, MPI_UNSIGNED_LONG, MPI_SUM,0, MPI_COMM_WORLD);
 	elapsed_time += MPI_Wtime();
@@ -136,6 +124,7 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p){
 		printf ("Elapsed time of <Sieve with cache awareness> for (%"PRIu64") processes %10.6f\n", p, elapsed_time);
 	}
 
+	*lcount = c;
 	return global_count;
 }
 
