@@ -2,6 +2,7 @@
 #define SIEVE_LOCAL
 
 #include <math.h>
+#include "sieve_cache.h"
 
 #define ODD_INDEX(x) (((x-3)/2))
 #define INDEX_ODD(x) (2*x + 3)
@@ -57,16 +58,16 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p,uint64_t *lcount){
 		uint64_t sqrt_n = (uint64_t)ceil(sqrt((double)n));
 		uint64_t first;
 
-		char *sieve = (char *) malloc (sqrt_n);
-		//if(id == 1) printf("sqrt_n:%"PRIu64"\n",sqrt_n);
-
+		unsigned int *sieve;
+		unsigned int psize = localSieve(sqrt_n,&sieve);
 		for (i = 0; i < size; i++) marked[i] = 0;
-		for (i = 0; i < sqrt_n; i++) sieve[i] = 0;
+		//char *sieve = (char *) malloc (sqrt_n);
+		//for (i = 0; i < sqrt_n; i++) sieve[i] = 0;
+
 
 		index = 0;
-		prime = 3;
+		prime = sieve[0];
 		while(prime*prime <n){
-			//if(id==1) printf("%"PRIu64"\n",prime);
 			if(prime * prime > low_value){
 					first = prime * prime;
 			}else{
@@ -74,8 +75,6 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p,uint64_t *lcount){
 					first = low_value;
 				}else{//find next multiple of current prime//convert it to local odd index//
 					first = (low_value/prime)*prime;
-					//first = ( first % 2 == 0 ) ? first+prime : first + (prime << 1);//
-					//first = ( first & 1 ) ? first + (prime << 1) : first+prime;//
 					first = first + (prime << ( first & 1 ));
 				}
 			}
@@ -87,13 +86,15 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p,uint64_t *lcount){
 			}
 
 			//Find next prime to test
-			j = prime * prime;
+			//j = prime * prime;
 			//printf("{%"PRIu64"}\n",j);
-			for( ; j <= sqrt_n;j+=(prime<<1)){ sieve[ODD_INDEX(j)]=1; }
-			while (sieve[++index]);
-			prime = INDEX_ODD(index);
+			//for( ; j <= sqrt_n;j+=(prime<<1)){ sieve[ODD_INDEX(j)]=1; }
+			//while (sieve[++index]);
+			//prime = INDEX_ODD(index);
+			index++;
+			if(index < psize) prime=sieve[index];
+			else prime = n;
 		}
-
 		for(i = 0; i < size; i++) if (marked[i] == 0) count++;
 	}
 

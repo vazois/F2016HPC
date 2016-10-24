@@ -4,7 +4,7 @@ EXEC2=sorg
 
 EXP=10
 P=256
-C=10000
+C=1000000
 
 all: cc
 
