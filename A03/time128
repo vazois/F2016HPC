@@ -1,0 +1,73 @@
+rm -rf sieve
+mpicc main.c -lm -o sieve
+
+Executing original sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Original Sieve> for (128) processes  14.451448
+Executing odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve on odd numbers> for (128) processes   6.793064
+Executing local odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with local sieve> for (128) processes   6.739195
+Executing odd numbers sieve with cache awareness 
+Cached Array Size:10000
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with cache awareness> for (128) processes   5.681996
+Comparison between original to odd version,(PASS)
+Comparison between original to local odd version,(PASS)
+Comparison between original to local cache aware version,(PASS)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Executing original sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Original Sieve> for (128) processes  14.128507
+Executing odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve on odd numbers> for (128) processes   6.786653
+Executing local odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with local sieve> for (128) processes   6.729810
+Executing odd numbers sieve with cache awareness 
+Cached Array Size:100000
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with cache awareness> for (128) processes   2.018884
+Comparison between original to odd version,(PASS)
+Comparison between original to local odd version,(PASS)
+Comparison between original to local cache aware version,(PASS)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Executing original sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Original Sieve> for (128) processes  14.454016
+Executing odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve on odd numbers> for (128) processes   6.785170
+Executing local odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with local sieve> for (128) processes   6.736307
+Executing odd numbers sieve with cache awareness 
+Cached Array Size:1000000
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with cache awareness> for (128) processes   1.734453
+Comparison between original to odd version,(PASS)
+Comparison between original to local odd version,(PASS)
+Comparison between original to local cache aware version,(PASS)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Executing original sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Original Sieve> for (128) processes  14.173852
+Executing odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve on odd numbers> for (128) processes   6.788736
+Executing local odd numbers sieve
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with local sieve> for (128) processes   6.723229
+Executing odd numbers sieve with cache awareness 
+Cached Array Size:10000000
+There are {455052511} primes less than or equal to 10000000000
+Elapsed time of <Sieve with cache awareness> for (128) processes   5.323279
+Comparison between original to odd version,(PASS)
+Comparison between original to local odd version,(PASS)
+Comparison between original to local cache aware version,(PASS)
