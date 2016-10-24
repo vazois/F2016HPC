@@ -13,6 +13,7 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 	uint64_t high_value = 1 + ((uint64_t)(id+1))*((n-1))/p;
 	uint64_t size = (high_value - low_value)/2 + 1;
 
+	//printf("([%d],%"PRIu64",%"PRIu64",%"PRIu64")\n",id,low_value,high_value,size);
 	MPI_Barrier(MPI_COMM_WORLD);
 	double elapsed_time = -MPI_Wtime();
 	uint64_t proc0_size = (n-1)/p;
@@ -52,9 +53,15 @@ uint64_t sieve_odd(int id, uint64_t n,uint64_t p){
 
 		i=first;
 		uint64_t offset = ODD_INDEX(low_value);
-		while( i <= high_value ){
+		/*while( i <= high_value ){
 			marked[ODD_INDEX(i) - offset]=1;
 			i+=(prime <<1);
+		}*/
+
+		i = ODD_INDEX(i) - offset;
+		while( i < size ){
+			marked[i]=1;
+			i+=prime;
 		}
 
 		if(id == 0){

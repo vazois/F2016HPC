@@ -105,12 +105,18 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 			}
 			//if(id==1) printf("p:%"PRIu64",lo:%"PRIu64",f:%"PRIu64",hi:%"PRIu64"\n",prime,lo,first,hi);
 
+
+			/*uint64_t offset = ODD_INDEX(lo);
 			uint64_t k=0;
-			uint64_t offset = ODD_INDEX(lo);
 			for(k=first;k<=hi;k+=(prime<<1)){
 				marked[ODD_INDEXC(k) - offset] = 0;
-			}
+			}*/
 
+			uint64_t offset = ODD_INDEX(lo);
+			uint64_t k=0;
+			for(k=ODD_INDEX(first) - offset ;k<=odds;k+=(prime)){
+				marked[k] = 0;
+			}
 		}
 		for(j = 0; j <= odds; j++){ c = c + marked[j]; }
 

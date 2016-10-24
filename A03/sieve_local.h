@@ -80,9 +80,15 @@ uint64_t sieve_local_odd(int id, uint64_t n,uint64_t p,uint64_t *lcount){
 			}
 			uint64_t i = first;
 			uint64_t offset = ODD_INDEX(low_value);
-			while( i <= high_value ){
+			/*while( i <= high_value ){
 				marked[ODD_INDEX(i) - offset]=1;
 				i+=(prime <<1);
+			}*/
+
+			i = ODD_INDEX(i) - offset;
+			while( i < size ){
+				marked[i]=1;
+				i+=prime;
 			}
 
 			//Find next prime to test
