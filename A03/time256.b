@@ -15,7 +15,7 @@ There are {455052623} primes less than or equal to 10000000000
 Elapsed time of <Sieve with cache awareness> for (256) processes   2.813120
 Comparison between original to odd version,(PASS)
 Comparison between original to local odd version,(PASS)
-Comparison between original to local cache aware version,(FAIL)
+Comparison between original to local cache aware version,(PASS)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
