@@ -133,11 +133,11 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 		unsigned int rb = 4;
 		unsigned int f =  psize % 4;
 
-		if(rb == 1) mark(&marked,p1,offset,lo,odds);
-		else if (rb == 2){
+		if(f == 1) mark(&marked,p1,offset,lo,odds);
+		else if (f == 2){
 			mark(&marked,p1,offset,lo,odds);
 			mark(&marked,p2,offset,lo,odds);
-		}else if (rb == 3){
+		}else if (f == 3){
 			mark(&marked,p1,offset,lo,odds);
 			mark(&marked,p2,offset,lo,odds);
 			mark(&marked,p3,offset,lo,odds);
