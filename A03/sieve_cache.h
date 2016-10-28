@@ -130,11 +130,14 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 		uint64_t p3 = sieve[2];
 		uint64_t p4;
 
-		mark(&marked,p1,offset,lo,odds);
-		mark(&marked,p2,offset,lo,odds);
-		mark(&marked,p3,offset,lo,odds);
+		unsigned int rb = 4;
+		unsigned int f =  psize % 4;
 
-		for(j=3;j<psize;j+=4){
+		for(j=0;j<f;j++){
+			mark(&marked,sieve[j],offset,lo,odds);
+		}
+
+		for(j=f;j<psize;j+=4){
 			p1 = sieve[j];
 			p2 = sieve[j+1];
 			p3 = sieve[j+2];
