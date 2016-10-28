@@ -48,6 +48,21 @@ unsigned int localSieve(unsigned int n, unsigned int **sieve){
 	return count - 1;
 }
 
+void mark(char **marked,uint64_t p1,uint64_t offset,uint64_t lo,uint64_t odds){
+	uint64_t first = p1 * p1;
+	if (first <= lo){
+		if ((lo % p1) == 0){
+			first = lo;
+		}else{
+			first = (lo/p1)*p1;
+			first = first + (p1 << ( first & 1 ));
+		}
+	}
+	uint64_t k;
+	for(k=ODD_INDEX(first) - offset;k<=odds;k+=(p1)){ (*marked)[k] = 0; }
+
+}
+
 uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 	if(id == 0) printf("Executing odd numbers sieve with cache awareness \n");
 	uint64_t low_value = (id==0) ? 3 : 2 + ((uint64_t)id)*((n-1))/p;
@@ -75,51 +90,73 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 	uint64_t csize = 0;
 	char *marked = (char*)malloc(bsize/2 + 1);
 	uint64_t prime;
-	uint64_t first;
+	//uint64_t first;
 	uint64_t c = 0;
+	uint64_t offset;
+	//uint64_t k=0;
 
 	i = low_value;
 	while(i <= high_value){
 		csize = (i+bsize <= high_value) ? bsize : (high_value - i);//chunk size
 		uint64_t lo = i;
-		uint64_t hi = i+csize;
-		uint64_t odds = (hi - lo)/2;
+		//uint64_t hi = i+csize;
+		uint64_t odds = (i+csize - lo)/2;
+		uint64_t offset = ODD_INDEX(lo);
+
 		for(j = 0 ; j < bsize/2;j++) marked[j] = 1;
 
 		//if(id==0) printf("lo,hi,csize: %"PRIu64",%"PRIu64",%"PRIu64"\n",lo,hi,csize);
 		//if(id==0) printf("low_value,high_value,csize: %"PRIu64",%"PRIu64",%d\n",low_value,high_value,bsize);
 
-		for(j=0;j<psize;j++){
+		/*for(j=0;j<7;j+=3){
 			prime = sieve[j];
-			first = lo;
-
-			if(prime * prime > lo){
-				first = prime * prime;
-			}else{
-				if ((lo % prime)== 0){
+			if(prime == 0 && j+1 >=psize){
+				printf("%d,%"PRIu64",%d\n",id,j,psize);
+			}
+			first = prime * prime;
+			if (first <= lo){
+				if ((lo % prime) == 0){
 					first = lo;
 				}else{
 					first = (lo/prime)*prime;
 					first = first + (prime << ( first & 1 ));
 				}
 			}
-			//if(id==1) printf("p:%"PRIu64",lo:%"PRIu64",f:%"PRIu64",hi:%"PRIu64"\n",prime,lo,first,hi);
+			for(k=ODD_INDEX(first) - offset;k<=odds;k+=(prime)){ marked[k] = 0; }
+		}*/
 
+		mark(&marked,sieve[0],offset,lo,odds);
+		mark(&marked,sieve[1],offset,lo,odds);
+		mark(&marked,sieve[2],offset,lo,odds);
 
-			/*uint64_t offset = ODD_INDEX(lo);
-			uint64_t k=0;
-			for(k=first;k<=hi;k+=(prime<<1)){
-				marked[ODD_INDEXC(k) - offset] = 0;
-			}*/
+		for(j=3;j<psize;j+=4){
+			uint64_t p1 = sieve[j];
+			uint64_t p2 = sieve[j+1];
+			uint64_t p3 = sieve[j+2];
+			uint64_t p4 = sieve[j+3];
+			/*uint64_t p5 = sieve[j+4];
+			uint64_t p6 = sieve[j+5];
+			uint64_t p7 = sieve[j+6];
+			uint64_t p8 = sieve[j+7];*/
 
-			uint64_t offset = ODD_INDEX(lo);
-			uint64_t k=0;
-			for(k=ODD_INDEX(first) - offset ;k<=odds;k+=(prime)){
-				marked[k] = 0;
+			/*first = p1 * p1;
+			if (first <= lo){
+				if ((lo % p1) == 0){
+					first = lo;
+				}else{
+					first = (lo/p1)*p1;
+					first = first + (p1 << ( first & 1 ));
+				}
 			}
-		}
-		for(j = 0; j <= odds; j++){ c = c + marked[j]; }
+			for(k=ODD_INDEX(first) - offset;k<=odds;k+=(p1)){ marked[k] = 0; }*/
 
+			mark(&marked,p1,offset,lo,odds);
+			mark(&marked,p2,offset,lo,odds);
+			mark(&marked,p3,offset,lo,odds);
+			mark(&marked,p4,offset,lo,odds);
+		}
+
+		for(j = 0; j <= odds; j++){ c = c + marked[j]; }
 		i+=bsize;
 	}
 
