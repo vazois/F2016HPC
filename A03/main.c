@@ -36,7 +36,6 @@ int main(int argc, char **argv){
 	n = pow(10,(double)exp);
 	BSIZE = atoi(argv[2]);
 
-
 	uint64_t rlc0,rlc1;
 	uint64_t res_orig=sieve_original(id,n,p);
 	MPI_Barrier(MPI_COMM_WORLD);
