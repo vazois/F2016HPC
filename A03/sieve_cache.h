@@ -128,24 +128,12 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 		uint64_t p1 = sieve[0];
 		uint64_t p2 = sieve[1];
 		uint64_t p3 = sieve[2];
-		uint64_t p4 = sieve[3];
-		uint64_t p5 = sieve[4];
-		uint64_t p6 = sieve[5];
-		uint64_t p7 = sieve[6];
-		uint64_t p8;
-
-		mark(&marked,p1,offset,lo,odds);
-		mark(&marked,p2,offset,lo,odds);
-		mark(&marked,p3,offset,lo,odds);
-		mark(&marked,p4,offset,lo,odds);
-		mark(&marked,p5,offset,lo,odds);
-		mark(&marked,p6,offset,lo,odds);
-		mark(&marked,p7,offset,lo,odds);
+		uint64_t p4;
 
 		unsigned int rb = 4;
 		unsigned int f =  psize % 4;
 
-		/*if(rb == 1) mark(&marked,p1,offset,lo,odds);
+		if(rb == 1) mark(&marked,p1,offset,lo,odds);
 		else if (rb == 2){
 			mark(&marked,p1,offset,lo,odds);
 			mark(&marked,p2,offset,lo,odds);
@@ -153,26 +141,18 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 			mark(&marked,p1,offset,lo,odds);
 			mark(&marked,p2,offset,lo,odds);
 			mark(&marked,p3,offset,lo,odds);
-		}*/
+		}
 
-		for(j=7;j<psize;j+=8){
+		for(j=f;j<psize;j+=4){
 			p1 = sieve[j];
 			p2 = sieve[j+1];
 			p3 = sieve[j+2];
 			p4 = sieve[j+3];
-			p5 = sieve[j+4];
-			p6 = sieve[j+5];
-			p7 = sieve[j+6];
-			p8 = sieve[j+7];
 
 			mark(&marked,p1,offset,lo,odds);
 			mark(&marked,p2,offset,lo,odds);
 			mark(&marked,p3,offset,lo,odds);
 			mark(&marked,p4,offset,lo,odds);
-			mark(&marked,p5,offset,lo,odds);
-			mark(&marked,p6,offset,lo,odds);
-			mark(&marked,p7,offset,lo,odds);
-			mark(&marked,p8,offset,lo,odds);
 		}
 
 		for(j = 0; j <= odds; j++){ c = c + marked[j]; }
