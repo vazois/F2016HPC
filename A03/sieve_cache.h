@@ -125,30 +125,20 @@ uint64_t sieve_local_cache(int id, uint64_t n,uint64_t p, uint64_t *lcount){
 			for(k=ODD_INDEX(first) - offset;k<=odds;k+=(prime)){ marked[k] = 0; }
 		}*/
 
-		mark(&marked,sieve[0],offset,lo,odds);
-		mark(&marked,sieve[1],offset,lo,odds);
-		mark(&marked,sieve[2],offset,lo,odds);
+		uint64_t p1 = sieve[0];
+		uint64_t p2 = sieve[1];
+		uint64_t p3 = sieve[2];
+		uint64_t p4;
+
+		mark(&marked,p1,offset,lo,odds);
+		mark(&marked,p2,offset,lo,odds);
+		mark(&marked,p3,offset,lo,odds);
 
 		for(j=3;j<psize;j+=4){
-			uint64_t p1 = sieve[j];
-			uint64_t p2 = sieve[j+1];
-			uint64_t p3 = sieve[j+2];
-			uint64_t p4 = sieve[j+3];
-			/*uint64_t p5 = sieve[j+4];
-			uint64_t p6 = sieve[j+5];
-			uint64_t p7 = sieve[j+6];
-			uint64_t p8 = sieve[j+7];*/
-
-			/*first = p1 * p1;
-			if (first <= lo){
-				if ((lo % p1) == 0){
-					first = lo;
-				}else{
-					first = (lo/p1)*p1;
-					first = first + (p1 << ( first & 1 ));
-				}
-			}
-			for(k=ODD_INDEX(first) - offset;k<=odds;k+=(p1)){ marked[k] = 0; }*/
+			p1 = sieve[j];
+			p2 = sieve[j+1];
+			p3 = sieve[j+2];
+			p4 = sieve[j+3];
 
 			mark(&marked,p1,offset,lo,odds);
 			mark(&marked,p2,offset,lo,odds);

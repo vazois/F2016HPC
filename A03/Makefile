@@ -3,7 +3,7 @@ EXEC=sieve
 EXEC2=sorg
 
 EXP=10
-P=32
+P=256
 C=1000000
 
 all: cc

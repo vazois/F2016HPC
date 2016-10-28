@@ -9,4 +9,7 @@ cd $JOB_PATH
 
 make clean
 make
+mpiexec ./sieve 10 10000
+mpiexec ./sieve 10 100000
 mpiexec ./sieve 10 1000000
+mpiexec ./sieve 10 10000000
